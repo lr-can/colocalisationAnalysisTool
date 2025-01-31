@@ -1,0 +1,104 @@
+Anne chevalro ?
+
+= système immunitaire bactérie
+
+bioarchive -> lire le papier.
+-> Familiarisation avec les fichiers in & out
+
+Charles pourrait faire maître d'ouvrage car il travaille directement dessus.
+
+Domestication du prophage par la bactérie.
+
+Genomad : parties mobiles que les bactéries s'échangent & les systèmes de défenses : empêcher de rentrer dans la bactérie
+Plasmide echange : genomad.
+
+Il y a des éléments de défense : 
+si colocalisation : est-ce que les phages ammènent aussi la défense dans ces génomes ?
+
+|---______-------------|  genomad
+|-----|---------||-----|  defensefinder
+
+Est-ce que les systèmes de défense sont apportées par des virus, qui se font la guerre entre eux ?
+
+=> Prendre génome de pseudomonas complet du NCBI, on fait tourner genomad et defense finder dessus.
+
+Génome complet ou pas ? à voir avec maître d'ouvrage
+
+Attention à la répartition du projet, car on est tous sensés pouvoir répondre aux questions.
+
+Commencer à utiliser les logiciels maintenant.
+Bibliographie + Github
+
+Jeu de données sur lequel faire des tests.
+
+1. Les 2 outils
+2. Les jeux de données : génome complet (ça va), pas assemblé (plus compliqué). A DEMANDER !!!
+
+- Qu'est-ce que je vais donner en entrée ?
+- En sortie ?
+- Comment je vais pouvoir merge les deux informations.
+
+Recherches d'outils plus spécialisés.
+Virsorter 2 (qui est mieux que genomad) il donne des limites. / crispr (certains sont mieux)
+|-------[     -----      ]---------|
+        X     Xa  Xb     Y
+        
+ou alors
+
+|--------------[     ]------*-------|
+|--------------[     ]--*-----------|
+
+Histogramme du plus de distance ou pas.
+
+Faire la recherche de plus.
+Voir si les outils performent bien sur des genomes pas complets. (fasta, protéique, multiprotéique)
+
+https://www.biorxiv.org/content/10.1101/2024.12.20.629700v1
+
+Partie visualisation : peut paraître assez compliqué. A voir si des outils existent déjà.
+Histogramme distance prophage / distance 2 à 2 avec système de défense.
+
+Coevolution --- course à l'armement
+Cooption --- une entité prend le système de défense du phage par ex, mais le reste elle en veut pas car sinon elle risque de mourir.
+
+CAS9 ? KESAKO.
+
+Colocalisation . Est-ce qu'il sont dans les limites du prophage ? 
+
+
+geNomad ou Virsorter 2 -> Limites des prophage obtenues de X à Y.
+defenseFinder -> protein num X -> chercher ensuite la protéine num X avec les distances.
+
+On sait que les prophages ammènent parfois des systèmes de défenses. Mais on ne connait pas du tout la fréquence
+Si distance est toujours 0, c'est le prophage.
+Si la distance est toujours X kb, c'est sûrement pas ammené par le prophage.
+
+Ensuite distribution
+|  -
+|  -
+|  - -
+|  - - -
+|_____________>
+Ici, on a une distance
+
+|-
+|-
+|-
+|-
+|-
+_________________>
+Colocalisation
+
+1. Quels sont les meilleurs outils ? pas se limiter à geNomad ou defense finder ? 
+2. Comment est-ce qu'ils fonctionnent ? Entrée et sortie ? et résolution biologique.
+3. Chercher un génome de référence.
+
+Se partager les articles.
+
+Lundi réunion avec plantady.
+Ensuite, à voir si besoin de Coluzzi pour un entretien
+Tuteur pédagogique est aussi présent pour régler les problèmes hors sciences (relationnels) dans le groupe.
+
+Une semaine à l'avance pour voir.
+
+
