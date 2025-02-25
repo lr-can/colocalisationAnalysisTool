@@ -4,7 +4,7 @@ import defenseFinder
 import geNomad
 
 subprocess.check_call(["bash","./activateVenv.sh"])
-defenseFinder.install_defense_finder()
-defenseFinder.updateDF()
-geNomad.install_geNomad()
-geNomad.download_geNomad_database()
+subprocess.check_call(["bash", "./checkOrInstall.sh"])
+subprocess.check_call(["bash", "./defenseFinder.sh"])
+genomad = geNomad.install_geNomad()
+genomad_db = geNomad.download_geNomad_database()

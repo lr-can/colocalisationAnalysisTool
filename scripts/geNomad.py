@@ -20,11 +20,11 @@ def install_geNomad():
             print("Non-python dependencies have been installed.")
             print("Installing genomad")
 
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--target', '.venv', 'genomad'])
-            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'genomad'])
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'genomad', '--target', '.venv'])
             print("genomad has been installed.")
 
 def download_geNomad_database():
+    sys.path.insert(0, os.path.abspath('.venv'))
     if not os.path.exists('genomad_db'):
         print("Downloading genomad database")
         try:
