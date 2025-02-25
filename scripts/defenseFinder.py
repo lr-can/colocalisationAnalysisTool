@@ -13,6 +13,9 @@ def install_defense_finder():
         import defense_finder
         print("mdmparis-defense-finder is already installed.")
     except ImportError:
+        if shutil.which('hmmsearch') is None:
+            print("hmmsearch not found. Installing...")
+            subprocess.check_call(['apt-get', 'install', '-y', '--user', 'hmmer'])
         print("mdmparis-defense-finder not found. Installing...")
         subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0', 'markdown<3.4,>=3.2.1'])
         bin_dir = os.path.join('.venv', 'bin')
