@@ -1,0 +1,22 @@
+La limite des prophages est estimée.
+
+|______[]__[]________[]__[]______|
+20 gènes pour pouvoir avoir un prophage.
+
+Génome complet et contigs très compliqué.
+
+Prendre start to plus à gauche et stop du plus à droite => Système de défense + gènes qui font du prophage. 
+Prophage = provirus
+
+Virsorter 2 -> Positions du virus
+
+Plus courant 2-3 prophages 
+
+Stats serait sur tous les genomes -> Summary par génome : cbn de prophages, cbn de systèmes de défenses -> Combien dedans et combien dehors.
+
+Si on a plusieurs génomes, on obtient plusieurs résultats sur lesquels on peut faire des stats.
+
+=> Ajouter des tests 
+
+Envoyer un email à Clarisse et voir le meilleur outil ? Faire les tests d'ici la fin de semaine.
+

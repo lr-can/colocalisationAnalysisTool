@@ -3,6 +3,9 @@ import sys
 import site
 import os
 site.addsitedir('.venv')
+import shutil
+
+base_bin = os.path.join(os.getcwd(), '.venv/bin/')
 
 # DefenseFinder installation
 def install_defense_finder():
@@ -11,16 +14,17 @@ def install_defense_finder():
         print("mdmparis-defense-finder is already installed.")
     except ImportError:
         print("mdmparis-defense-finder not found. Installing...")
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--upgrade','--target', '.venv', 'mdmparis-defense-finder'])
-        venv_path = os.path.join(os.getcwd(), 'scripts', '.venv', 'defense_finder_cli', 'main.py')
-        os.symlink(venv_path, '/usr/local/bin/defense-finder')
-        os.chmod('/usr/local/bin/defense-finder', 0o755)
-        import defense_finder
+        subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0'])
+        bin_dir = os.path.join('.venv', 'bin')
+        for file_name in os.listdir(bin_dir):
+            full_file_name = os.path.join(bin_dir, file_name)
+            if os.path.isfile(full_file_name):
+                shutil.copy(full_file_name, os.path.join('.venv', file_name))
 
 def updateDF():
     try: 
         import defense_finder
-        subprocess.check_call(['defense-finder', 'update'])
+        subprocess.check_call(['.venv/defense-finder', 'update'])
     except ImportError:
         print("defense-finder not found. Please check the installation.")
         subprocess.check_call([sys.executable, '-m', 'pip', '--version'])

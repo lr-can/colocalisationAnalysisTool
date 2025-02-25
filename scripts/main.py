@@ -3,7 +3,7 @@ import subprocess
 import defenseFinder
 import geNomad
 
-subprocess.run(["./activateVenv.sh"], check=True)
+subprocess.check_call(["bash","./activateVenv.sh"])
 defenseFinder.install_defense_finder()
 defenseFinder.updateDF()
 geNomad.install_geNomad()

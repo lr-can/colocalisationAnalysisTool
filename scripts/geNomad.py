@@ -6,22 +6,23 @@ site.addsitedir('.venv')
 
 # DefenseFinder installation
 def install_geNomad():
-    try:
-        import genomad
-        print("genomad is already installed.")
-    except ImportError:
-        print("genomad not found. Installing...")
-        print("Installing non-python dependencies:")
-        if not os.path.exists('.venv/bin/mmseqs'):
-            MMseq2_install()
-        if not os.path.exists('.venv/aragorn'):
-            aragorn()
-        print("Non-python dependencies have been installed.")
-        print("Installing genomad")
+    if not os.path.exists('.venv/genomad'):
+        try:
+            import genomad
+            print("genomad is already installed.")
+        except ImportError:
+            print("genomad not found. Installing...")
+            print("Installing non-python dependencies:")
+            if not os.path.exists('.venv/bin/mmseqs'):
+                MMseq2_install()
+            if not os.path.exists('.venv/aragorn'):
+                aragorn()
+            print("Non-python dependencies have been installed.")
+            print("Installing genomad")
 
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--target', '.venv', 'genomad'])
-        subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'genomad'])
-        print("genomad has been installed.")
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--target', '.venv', 'genomad'])
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'genomad'])
+            print("genomad has been installed.")
 
 def download_geNomad_database():
     if not os.path.exists('genomad_db'):
