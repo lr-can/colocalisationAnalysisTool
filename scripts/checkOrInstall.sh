@@ -19,8 +19,12 @@ fi
 if ! command -v defense-finder &> /dev/null
 then
     echo "defense-finder could not be found, installing..."
-    pip install mdmparis-defense-finder -r ./requirements.txt --target .venv
-    pip install numpy<2.1.0,>=1.26.0 --target .venv
+    if [ ! -f ./requirements.txt ]; then
+        echo "requirements.txt not found, creating a default one..."
+        echo "mdmparis-defense-finder" > ./requirements.txt
+    fi
+    pip install -r ./requirements.txt --target .venv
+    pip install numpy==1.26.0 --target .venv
 else
     echo "defense-finder is already installed"
 fi
@@ -57,11 +61,11 @@ fi
 #then
 #    echo "genomad could not be found, installing..."
 #    pip install genomad --target .venv
-#else
+mkdir -p ./.venv/bin
+cp -r ./.venv/bin/* ./.venv/
 #    echo "genomad is already installed"
 #fi
 
-cp ./.venv/bin/* ./.venv/
 
 source ~/.bashrc
 echo "All dependencies have been installed successfully"
