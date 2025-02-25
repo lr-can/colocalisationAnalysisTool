@@ -15,7 +15,7 @@ def install_defense_finder():
     except ImportError:
         if shutil.which('hmmsearch') is None:
             print("hmmsearch not found. Installing...")
-            subprocess.check_call(['conda', 'install', '-c', 'biocore', 'hmmer', '-y'])
+            subprocess.check_call(['apt', 'install', 'hmmer', '-y'])
         print("mdmparis-defense-finder not found. Installing...")
         subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0', 'markdown<3.4,>=3.2.1'])
         bin_dir = os.path.join('.venv', 'bin')
