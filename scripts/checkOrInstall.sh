@@ -19,7 +19,7 @@ fi
 if ! command -v defense-finder &> /dev/null
 then
     echo "defense-finder could not be found, installing..."
-    pip install mdmparis-defense-finder -r requirements.txt --target .venv
+    pip install mdmparis-defense-finder -r ./requirements.txt --target .venv
     pip install numpy<2.1.0,>=1.26.0 --target .venv
 else
     echo "defense-finder is already installed"
