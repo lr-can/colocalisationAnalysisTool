@@ -14,7 +14,7 @@ def install_defense_finder():
         print("mdmparis-defense-finder is already installed.")
     except ImportError:
         print("mdmparis-defense-finder not found. Installing...")
-        subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0'])
+        subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0', 'markdown<3.4,>=3.2.1'])
         bin_dir = os.path.join('.venv', 'bin')
         for file_name in os.listdir(bin_dir):
             full_file_name = os.path.join(bin_dir, file_name)
