@@ -6,16 +6,17 @@ if [ -d ".venv" ]; then
     echo "Virtual environment has successfully been activated" 
     exit 0
 else
-    if command -v conda &> /dev/null; then
-        echo ".venv directory does not exist. Creating a conda environment..."
-        conda create --prefix ./.venv -y
-        source activate ./.venv
-        echo "Conda environment created and activated."
-    else
-        echo ".venv directory does not exist. Creating a virtual environment using venv..."
-        python3 -m venv .venv
-        source .venv/bin/activate
-        echo "Virtual environment created and activated using venv."
+    echo ".venv directory does not exist. Creating a conda environment..."
+    if ! command -v conda &> /dev/null; then
+        echo "Conda is not installed. Installing Miniconda for the current user..."
+        wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh
+        bash ~/miniconda.sh -b -p $HOME/miniconda
+        export PATH="$HOME/miniconda/bin:$PATH"
+        rm ~/miniconda.sh
+        echo "Miniconda installed successfully."
     fi
+    conda create --prefix ./.venv -y
+    source activate ./.venv
+    echo "Conda environment created and activated."
     exit 0
 fi
