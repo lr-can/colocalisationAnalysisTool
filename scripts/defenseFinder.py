@@ -15,16 +15,7 @@ def install_defense_finder():
     except ImportError:
         if shutil.which('hmmsearch') is None:
             print("hmmsearch not found. Installing...")
-            subprocess.check_call(['wget', 'http://eddylab.org/software/hmmer/hmmer.tar.gz'])
-            subprocess.check_call(['tar', 'zxf', 'hmmer.tar.gz'])
-            os.chdir('hmmer-3.4')
-            subprocess.check_call(['./configure', '--prefix', os.path.join(os.getcwd(), '.venv')])
-            subprocess.check_call(['make'])
-            subprocess.check_call(['make', 'check'])
-            subprocess.check_call(['make', 'install'])
-            os.chdir('easel')
-            subprocess.check_call(['make', 'install'])
-            os.chdir('../..')
+            subprocess.check_call(['apt-get', 'install', '--user', '-y', 'hmmer'])
         print("mdmparis-defense-finder not found. Installing...")
         subprocess.check_call(['pip', 'install', '--target', '.venv', 'mdmparis-defense-finder', 'numpy<2.1.0,>=1.26.0', 'markdown<3.4,>=3.2.1'])
         bin_dir = os.path.join('.venv', 'bin')
