@@ -17,7 +17,7 @@ else
 fi
 
 echo "Genomad is installed and ready to use."
-genomad --help
+genomad end-to-end --threads 4 ../ressources/GCF_000006765.1.fa.gz results_genomad genomad_db
 
 
 conda deactivate
