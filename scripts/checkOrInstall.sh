@@ -19,12 +19,16 @@ fi
 if ! command -v defense-finder &> /dev/null
 then
     echo "defense-finder could not be found, installing..."
-    if [ ! -f ./requirements.txt ]; then
-        echo "requirements.txt not found, creating a default one..."
-        echo "mdmparis-defense-finder" > ./requirements.txt
-    fi
-    pip install -r ./requirements.txt --target .venv
-    pip install numpy==1.26.0 --target .venv
+    conda create –name defensefinder
+    conda activate defensefinder
+    pip install mdmparis-defense-finder
+    conda deactivate
+#    if [ ! -f ./requirements.txt ]; then
+#        echo "requirements.txt not found, creating a default one..."
+#        echo "mdmparis-defense-finder" > ./requirements.txt
+#    fi
+#    pip install -r ./requirements.txt --target .venv
+#    pip install numpy==1.26.0 --target .venv
 else
     echo "defense-finder is already installed"
 fi
@@ -57,12 +61,24 @@ fi
 #    echo "aragorn is already installed"
 #fi
 
-#if ! command -v genomad &> /dev/null
-#then
-#    echo "genomad could not be found, installing..."
-#    pip install genomad --target .venv
+if ! command -v genomad &> /dev/null
+then
+    if conda env list | grep -q 'genomad'; then
+        echo "genomad is already installed"
+    else
+        echo "genomad could not be found, installing..."
+        conda create -n genomad -c conda-forge -c bioconda genomad
+    fi
+else 
+    echo "genomad is already installed"
+fi
+
+
+
 mkdir -p ./.venv/bin
-cp -r ./.venv/bin/* ./.venv/
+for file in ./.venv/bin/*; do
+    cp "$file" "${file}_bin"
+done
 #    echo "genomad is already installed"
 #fi
 

@@ -24,7 +24,7 @@ def install_geNomad():
             print("genomad has been installed.")
 
 def download_geNomad_database():
-    sys.path.insert(0, os.path.abspath('.venv'))
+    sys.path.insert(0, os.path.abspath('.venv/bin'))
     if not os.path.exists('genomad_db'):
         print("Downloading genomad database")
         try:
