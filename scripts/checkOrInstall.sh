@@ -19,7 +19,10 @@ fi
 if ! command -v defense-finder &> /dev/null
 then
     echo "defense-finder could not be found, installing..."
+
     conda create --name defensefinder
+    conda init
+    source ~/.bashrc
     conda activate defensefinder
     pip install mdmparis-defense-finder
     conda deactivate

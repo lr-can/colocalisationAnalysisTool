@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Initialize conda
+eval "$(conda shell.bash hook)"
+conda activate defensefinder
 
-export PATH=.venv/:$PATH
 defense-finder update 
+conda deactivate
