@@ -1,5 +1,7 @@
 #!/bin/bash
 export PATH=.venv/:$PATH
+
+# Install HMMER if not found
 if ! command -v hmmsearch &> /dev/null
 then
     echo "hmmsearch could not be found, installing..."
@@ -16,74 +18,28 @@ else
     echo "hmmsearch is already installed"
 fi
 
-if ! command -v defense-finder &> /dev/null
-then
-    echo "defense-finder could not be found, installing..."
-
-    conda create --name defensefinder
+# Initialize conda if not already done
+if ! grep -q 'conda initialize' ~/.bashrc; then
     conda init
     source ~/.bashrc
-    conda activate defensefinder
-    pip install mdmparis-defense-finder
-    conda deactivate
-#    if [ ! -f ./requirements.txt ]; then
-#        echo "requirements.txt not found, creating a default one..."
-#        echo "mdmparis-defense-finder" > ./requirements.txt
-#    fi
-#    pip install -r ./requirements.txt --target .venv
-#    pip install numpy==1.26.0 --target .venv
+fi
+
+# Create and activate defensefinder environment
+if ! conda env list | grep -q 'defensefinder'; then
+    echo "defense-finder could not be found, installing..."
+    pip install colorlog
+    conda create --name defensefinder -c bioconda -c conda-forge defense-finder -y
 else
     echo "defense-finder is already installed"
 fi
 
-#if ! command -v mmseqs &> /dev/null
-#then
-#    echo "mmseqs could not be found, installing..."
-#    wget https://mmseqs.com/latest/mmseqs-linux-avx2.tar.gz -O /tmp/mmseqs.tar.gz
-#   tar -xzf /tmp/mmseqs.tar.gz -C /tmp
-#    mkdir -p $HOME/bin
-#    mv /tmp/mmseqs/bin/* $HOME/bin/
-#    export PATH=$HOME/bin:$PATH
-#    echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-#    source ~/.bashrc
-#    echo "mmseqs installed successfully"
-#else
-#    echo "mmseqs is already installed"
-#fi
-
-#if ! command -v aragorn &> /dev/null
-#then
-#    echo "aragorn could not be found, installing..."
-#    mkdir -p $HOME/bin
-#    gcc /tmp/aragorn.c -o $HOME/bin/aragorn
-#    gcc /tmp/aragorn.c -o $HOME/bin/aragorn
-#    export PATH=$HOME/bin:$PATH
-#    echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-#    source ~/.bashrc
-#else
-#    echo "aragorn is already installed"
-#fi
-
-if ! command -v genomad &> /dev/null
-then
-    if conda env list | grep -q 'genomad'; then
-        echo "genomad is already installed"
-    else
-        echo "genomad could not be found, installing..."
-        conda create -n genomad -c conda-forge -c bioconda genomad
-    fi
-else 
+# Create genomad environment if not found
+if ! conda env list | grep -q 'genomad'; then
+    echo "genomad could not be found, installing..."
+    conda create -n genomad -c conda-forge -c bioconda genomad -y
+else
     echo "genomad is already installed"
 fi
-
-
-
-mkdir -p ./.venv/bin
-for file in ./.venv/bin/*; do
-    cp "$file" "${file}_bin"
-done
-#    echo "genomad is already installed"
-#fi
 
 
 source ~/.bashrc
