@@ -5,14 +5,14 @@ export PATH=.venv/:$PATH
 if ! command -v hmmsearch &> /dev/null
 then
     echo "hmmsearch could not be found, installing..."
-    wget http://eddylab.org/software/hmmer/hmmer.tar.gz -O $HOME/tmp/hmmer.tar.gz
-    tar -xzf $HOME/tmp/hmmer.tar.gz -C /tmp
-    cd $HOME/tmp/hmmer-*
-    ./configure --prefix=$HOME/hmmer
+    wget http://eddylab.org/software/hmmer/hmmer.tar.gz -O /tmp/hmmer.tar.gz
+    tar -xzf /tmp/hmmer.tar.gz -C /tmp
+    cd /tmp/hmmer-*
+    ./configure --prefix=$HOME/.local
     make
     make install
-    export PATH=$HOME/hmmer/bin:$PATH
-    echo 'export PATH=$HOME/hmmer/bin:$PATH' >> ~/.bashrc
+    export PATH=$HOME/.local/bin:$PATH
+    echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
     source ~/.bashrc
 else
     echo "hmmsearch is already installed"
