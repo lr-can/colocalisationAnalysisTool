@@ -43,6 +43,9 @@ if [ ! -f "$HOME/.local/bin/phastest_api.sh" ]; then
     mkdir -p $HOME/.local/bin
     wget https://raw.githubusercontent.com/ansontwk/PhasTest_API/refs/heads/main/Phastest_API.sh -O $HOME/.local/bin/phastest_api.sh
     chmod +x $HOME/.local/bin/phastest_api.sh
+    export PATH=$HOME/.local/bin:$PATH
+    echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+    source ~/.bashrc
     condition=1
 else
     echo "PhasTest_API is already installed"
