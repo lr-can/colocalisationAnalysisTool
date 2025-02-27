@@ -33,7 +33,7 @@ elif args.file:
 
 for file_ in files:
     subprocess.check_call(["bash", "./defenseFinder.sh", file_])
-    subprocess.check_call(["bash", "./geNomad.sh", file_, int(args.threads)])
+    subprocess.check_call(["bash", "./geNomad.sh", file_, str(args.threads)])
 
 #genomad = geNomad.install_geNomad()
 #genomad_db = geNomad.download_geNomad_database()
