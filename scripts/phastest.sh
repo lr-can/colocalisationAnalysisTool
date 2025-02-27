@@ -20,18 +20,9 @@ echo -e "\e[34mJob submitted.\e[0m"
 echo -e "\e[34mWaiting for the job to finish...\e[0m"
 sleep 60
 
-end=$((SECONDS+600))
-while [ $SECONDS -lt $end ]; do
-    echo -e "\e[34mChecking job status...\e[0m"
-    if ! bash phastest_api.sh --getresults --outDir ./results/results_phastest/$filename; then
-        echo -e "\e[34mJob is still running...\e[0m"
-    else
-        echo -e "\e[34mJob has finished. Retrieving data from the server...\e[0m"
-        break
-    fi
-    sleep 30
-done
-
+job_json_file=$(ls ./jobJson/* | head -n 1)
+job_id=$(jq -r '.job_id' "$job_json_file")
+python3 phastest.py -f ./tmp/"${filename}" -j "$job_id"
 
 echo -e "\e[32mPhasTest has finished running\e[0m"
 

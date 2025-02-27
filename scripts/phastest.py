@@ -1,0 +1,62 @@
+import requests
+import json
+import os
+import sys
+import argparse
+import time
+import zipfile
+
+class bcolors:
+    """
+    Just a class to store colors for the terminal.
+    """
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def parse_arguments():
+    """
+    Parses command-line arguments for the colocalisation analysis tool.
+    Returns:
+        argparse.Namespace: Parsed command-line arguments.
+    Arguments:
+        -f, --file (str): Input file to run colocalisation analysis on.
+        -j, --jobid (str): Job ID for the phaestest analysis.
+    """
+
+    parser = argparse.ArgumentParser(description="Run colocalisation analysis tool")
+    parser.add_argument('-f', '--file', type=str, help='Input file to run colocalisation analysis on')
+    parser.add_argument('-j', '--jobid', type=str, help='Job ID for the analysis')
+    return parser.parse_args()
+
+args = parse_arguments()
+
+while True:
+    response = requests.get(f"https://phastest.ca/phastest_api?acc={args.jobid}")
+    data = response.json()
+    
+    if data['status'] != "Complete":
+        print(f"{bcolors.WARNING}Job's status: {data['status']}{bcolors.ENDC}")
+        time.sleep(60)  # Wait for 60 seconds before checking again
+    else:
+        print(f"{bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
+        print(f"{bcolors.OKCYAN}{data['summary']}{bcolors.ENDC}")
+        
+        # Download the zip file
+        zip_response = requests.get(data['zip'])
+        zip_filename = f"results/results_phastest/{args.jobid}.zip"
+        
+        with open(zip_filename, 'wb') as f:
+            f.write(zip_response.content)
+        
+        # Unzip the file
+        with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
+            zip_ref.extractall(f"results/results_phastest/{args.jobid}")
+        
+        break
