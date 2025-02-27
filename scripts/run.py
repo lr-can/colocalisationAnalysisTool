@@ -32,8 +32,8 @@ elif args.file:
     files.append(args.file)
 
 for file_ in files:
-    subprocess.check_call(["bash", "./defenseFinder.sh", '-f', file_])
-    subprocess.check_call(["bash", "./geNomad.sh"], '-f', file_, '-t', args.threads)
+    subprocess.check_call(["bash", "./defenseFinder.sh", file_])
+    subprocess.check_call(["bash", "./geNomad.sh"], file_, args.threads)
 
 #genomad = geNomad.install_geNomad()
 #genomad_db = geNomad.download_geNomad_database()
