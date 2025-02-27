@@ -24,7 +24,7 @@ fi
 
 echo "Genomad is installed and ready to use."
 mkdir -p results/results_genomad/$filename
-genomad end-to-end --threads $threads $file_ results/results_genomad/$filename genomad_db
+genomad end-to-end --threads "$threads" "$file_" "results/results_genomad/$filename" genomad_db
 
 
 conda deactivate
