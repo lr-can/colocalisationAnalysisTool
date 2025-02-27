@@ -49,7 +49,7 @@ while True:
         print(f"{bcolors.OKCYAN}{data['summary']}{bcolors.ENDC}")
         
         # Download the zip file
-        zip_response = requests.get(data['zip'])
+        zip_response = requests.get("https://" + data['zip'])
         zip_filename = f"results/results_phastest/{args.jobid}.zip"
         
         with open(zip_filename, 'wb') as f:
@@ -58,5 +58,7 @@ while True:
         # Unzip the file
         with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
             zip_ref.extractall(f"results/results_phastest/{args.jobid}")
+        
+        print(f"{bcolors.OKGREEN}Results have been saved in results/results_phastest/{args.jobid}\n\n you can also view results at https://{data["url"]} {bcolors.ENDC}")
         
         break
