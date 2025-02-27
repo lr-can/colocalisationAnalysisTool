@@ -1,6 +1,7 @@
 #!/bin/bash
 export PATH=.venv/:$PATH
 
+condition=0
 # Install HMMER if not found
 if ! command -v hmmsearch &> /dev/null
 then
@@ -15,6 +16,7 @@ then
     export PATH=$HOME/.local/bin:$PATH
     echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
     source ~/.bashrc
+    condition=1
 else
     echo "hmmsearch is already installed"
 fi
@@ -30,6 +32,7 @@ if ! conda env list | grep -q 'defensefinder'; then
     echo "defense-finder could not be found, installing..."
     pip install colorlog
     conda create --name defensefinder -c bioconda -c conda-forge defense-finder -y
+    condition = 1
 else
     echo "defense-finder is already installed"
 fi
@@ -38,10 +41,26 @@ fi
 if ! conda env list | grep -q 'genomad'; then
     echo "genomad could not be found, installing..."
     conda create -n genomad -c conda-forge -c bioconda genomad -y
+    condition = 1
 else
     echo "genomad is already installed"
 fi
 
 
 source ~/.bashrc
-echo "All dependencies have been installed successfully"
+if [ $condition -eq 1 ]
+then
+    echo -e "\e[32mAll dependencies have been installed successfully\e[0m"
+    echo -e "\e[33m###############################################\e[0m"
+    echo -e "\e[33m# Please restart your terminal to use the     #\e[0m"
+    echo -e "\e[33m# installed tools                             #\e[0m"
+    echo -e "\e[33m###############################################\e[0m"
+    echo ""
+    echo -e "\e[34mThen, run 'python run.py --help' to see the available options\e[0m"
+else 
+    echo -e "\e[32mAll dependencies are already installed\e[0m"
+    echo -e "\e[34mYou can now run 'python run.py --help' to see the available options\e[0m"
+fi
+
+echo ""
+
