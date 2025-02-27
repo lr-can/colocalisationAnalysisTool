@@ -15,7 +15,7 @@ bash phastest_api.sh --submitjob --inputDir ./tmp/
 echo -e "\e[34mJob submitted.\e[0m"
 #sleep 300
 echo -e "\e[34mRetrieving data from the server...\e[0m"
-bash phastest_api.sh --getresults --outDir ./results/results_phastest/$filename --cleanup
+bash phastest_api.sh --getresults --outDir ./results/results_phastest/$filename
 echo -e "\e[32mPhasTest has finished running\e[0m"
 
 rm -r ./tmp/
