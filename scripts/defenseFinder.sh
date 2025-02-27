@@ -2,8 +2,7 @@
 
 file_=$1
 filename=$(basename -- "$file_")
-extension="${filename##*.}"
-filename="${filename%.*}"
+filename="${filename%%.*}"
 
 # Initialize conda
 eval "$(conda shell.bash hook)"

@@ -4,7 +4,7 @@ file_=$1
 threads=$2
 
 filename=$(basename -- "$file_")
-filename="${filename%.*}"
+filename="${filename%%.*}"
 
 # Initialize conda
 eval "$(conda shell.bash hook)"
