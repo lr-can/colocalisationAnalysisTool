@@ -20,12 +20,15 @@ echo -e "\e[34mJob submitted.\e[0m"
 echo -e "\e[34mWaiting for the job to finish...\e[0m"
 sleep 60
 
-job_json_file=$(ls ./jobJson/* | head -n 1)
+job_json_file=$(ls ./JobJson/* | head -n 1)
 job_id=$(jq -r '.job_id' "$job_json_file")
 python3 phastest.py -f ./tmp/"${filename}" -j "$job_id"
 
 echo -e "\e[32mPhasTest has finished running\e[0m"
 
 rm -r ./tmp/
+rm -r ./JobJson/
+rm -r ./SubmissionJson/
+
 
 echo "Removed the file in the tmp directory"
