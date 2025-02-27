@@ -1,5 +1,11 @@
 #!/bin/bash
 
+file_=$1
+threads=$2
+
+filename=$(basename -- "$file_")
+filename="${filename%.*}"
+
 # Initialize conda
 eval "$(conda shell.bash hook)"
 
@@ -17,7 +23,8 @@ else
 fi
 
 echo "Genomad is installed and ready to use."
-genomad end-to-end --threads 4 ../ressources/GCF_000006765.1.fa.gz results_genomad genomad_db
+mkdir -p results/results_genomad/$filename
+genomad end-to-end --threads $threads $file_ results/results_genomad/$filename genomad_db
 
 
 conda deactivate
