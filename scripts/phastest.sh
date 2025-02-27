@@ -18,9 +18,8 @@ bash phastest_api.sh --submitjob --inputDir ./tmp/
 echo -e "\e[34mJob submitted.\e[0m"
 
 echo -e "\e[34mWaiting for the job to finish...\e[0m"
-sleep 60
 
-job_json_file=$(ls ./JobJson/* | head -n 1)
+job_json_file=$(ls ./SubmissionJson/* | head -n 1)
 job_id=$(jq -r '.job_id' "$job_json_file")
 python3 phastest.py -f ./tmp/"${filename}" -j "$job_id"
 
