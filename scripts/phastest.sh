@@ -7,7 +7,7 @@ echo "Copying the file to the tmp directory"
 
 mkdir -p ./tmp/
 cp "$file_" ./tmp/
-gunzip .tmp/"$filename"
+gunzip ./tmp/"$filename"
 
 
 bash phastest_api.sh --submitjob --inputDir ./tmp/
