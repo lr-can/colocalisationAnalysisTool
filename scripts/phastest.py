@@ -14,6 +14,7 @@ class bcolors:
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
     OKGREEN = '\033[92m'
+    OKGREY = '\033[90m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
@@ -42,11 +43,13 @@ while True:
     data = response.json()
     
     if data['status'] != "Complete":
-        print(f"{bcolors.WARNING}Job's status: {data['status']}{bcolors.ENDC}")
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print(f"{current_time} - {bcolors.WARNING}Job's status: {data['status']}{bcolors.ENDC}")
         time.sleep(60)  # Wait for 60 seconds before checking again
     else:
-        print(f"{bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
-        print(f"{bcolors.OKCYAN}{data['summary']}{bcolors.ENDC}")
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        print(f"{current_time} - {bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
+        print(f"{bcolors.OKGREY}{data['summary']}{bcolors.ENDC}")
         
         # Download the zip file
         zip_response = requests.get("https://" + data['zip'])
