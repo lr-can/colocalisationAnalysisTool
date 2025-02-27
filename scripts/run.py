@@ -33,6 +33,7 @@ def parse_arguments():
     parser.add_argument('-f', '--file', type=str, help='Input file to run colocalisation analysis on')
     parser.add_argument('-d', '--directory', type=str, help='Input directory if you want to run on multiple files')
     parser.add_argument('-t', '--threads', type=int, help='Number of threads to use for geNomad')
+    parser.add_argument('-p', '--phastest', action='store_true', help='Include phastest in the analysis')
     return parser.parse_args()
 
 args = parse_arguments()
@@ -68,7 +69,14 @@ for file_ in files:
     subprocess.check_call(["bash", "./defenseFinder.sh", file_])
     print(f"{bcolors.OKCYAN} Running geNomad.sh {bcolors.ENDC}")
     subprocess.check_call(["bash", "./geNomad.sh", file_, str(args.threads)])
-    print(f"{bcolors.OKGREEN} Colocalisation analysis finished for {file_} {bcolors.ENDC}")
+    if args.phastest:
+        print(f"{bcolors.OKCYAN} Running phastest.sh {bcolors.ENDC}")
+        subprocess.check_call(["bash", "./phastest.sh", file_])
+        print(f"{bcolors.OKGREEN} Phastest finished for {file_} {bcolors.ENDC}")
+    print(f"{bcolors.OKGREEN} All analyses finished for {file_} {bcolors.ENDC}")
+
+print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
+
 
 #genomad = geNomad.install_geNomad()
 #genomad_db = geNomad.download_geNomad_database()

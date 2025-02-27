@@ -21,6 +21,32 @@ else
     echo "hmmsearch is already installed"
 fi
 
+# Install jq if not found
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found, installing..."
+    mkdir -p $HOME/tmp
+    wget -O $HOME/tmp/jq https://stedolan.github.io/jq/download/linux64/jq
+    chmod +x $HOME/tmp/jq
+    mv $HOME/tmp/jq $HOME/.local/bin/jq
+    export PATH=$HOME/.local/bin:$PATH
+    echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/.bashrc
+    source ~/.bashrc
+    condition=1
+else
+    echo "jq is already installed"
+fi
+
+# Install PhasTest_API if not found
+if [ ! -f "$HOME/.local/bin/phastest_api.sh" ]; then
+    echo "PhasTest_API could not be found, installing..."
+    wget https://github.com/ansontwk/PhasTest_API/raw/main/phastest_api.sh -O $HOME/.local/bin/phastest_api.sh
+    chmod +x $HOME/.local/bin/phastest_api.sh
+    condition=1
+else
+    echo "PhasTest_API is already installed"
+fi
+
 # Initialize conda if not already done
 if ! grep -q 'conda initialize' ~/.bashrc; then
     conda init
