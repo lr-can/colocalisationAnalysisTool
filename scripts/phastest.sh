@@ -7,8 +7,10 @@ echo "Copying the file to the tmp directory"
 
 mkdir -p ./tmp/
 cp "$file_" ./tmp/
-gunzip -c ./tmp/"$filename" > ./tmp/"$filename.fna"
-mv ./tmp/"$filename" ./tmp/"$filename.fna"
+gunzip .tmp/"$filename"
+for f in ./tmp/*; do
+    mv -- "$f" "${f}.fna"
+done
 
 bash phastest_api.sh --submitjob --inputDir ./tmp/
 
