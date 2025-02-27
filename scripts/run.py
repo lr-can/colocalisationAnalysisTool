@@ -66,9 +66,9 @@ print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{"s"
 for file_ in files:
     print(f"{bcolors.OKBLUE} Running colocalisation analysis on {file_} {bcolors.ENDC}")
     print(f"{bcolors.OKCYAN} Running defenseFinder.sh {bcolors.ENDC}")
-    subprocess.check_call(["bash", ".scripts//defenseFinder.sh", file_])
+    subprocess.check_call(["bash", "./scripts/defenseFinder.sh", file_])
     print(f"{bcolors.OKCYAN} Running geNomad.sh {bcolors.ENDC}")
-    subprocess.check_call(["bash", ".scripts//geNomad.sh", file_, str(args.threads)])
+    subprocess.check_call(["bash", "./scripts/geNomad.sh", file_, str(args.threads)])
     if args.phastest:
         print(f"{bcolors.OKCYAN} Running phastest.sh {bcolors.ENDC}")
         subprocess.check_call(["bash", "./scripts/phastest.sh", file_])
