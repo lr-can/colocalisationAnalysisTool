@@ -13,6 +13,6 @@ defense-finder update
 
 echo "DefenseFinder is installed and ready to use."
 
-defense-finder run -o ../results/result_Finder/$filename $file_
+defense-finder run -o ./results/result_Finder/$filename $file_
 
 conda deactivate
