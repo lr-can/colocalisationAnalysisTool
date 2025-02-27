@@ -26,7 +26,6 @@ python3 phastest.py -f ./tmp/"${filename}" -j "$job_id"
 echo -e "\e[32mPhasTest has finished running\e[0m"
 
 rm -r ./tmp/
-rm -r ./JobJson/
 rm -r ./SubmissionJson/
 
 

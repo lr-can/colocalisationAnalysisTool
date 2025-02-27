@@ -53,14 +53,14 @@ while True:
         
         # Download the zip file
         zip_response = requests.get("https://" + data['zip'])
-        zip_filename = f"results/results_phastest/{args.jobid}.zip"
+        zip_filename = f"../results/results_phastest/{args.jobid}.zip"
         
         with open(zip_filename, 'wb') as f:
             f.write(zip_response.content)
         
         # Unzip the file
         with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
-            zip_ref.extractall(f"results/results_phastest/{args.jobid}")
+            zip_ref.extractall(f"../results/results_phastest/{args.jobid}")
         
         print(f"{bcolors.OKGREEN}Results have been saved in results/results_phastest/{args.jobid}\n\n you can also view results at https://{data["url"]} {bcolors.ENDC}")
         
