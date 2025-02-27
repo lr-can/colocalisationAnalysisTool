@@ -41,7 +41,7 @@ fi
 if [ ! -f "$HOME/.local/bin/phastest_api.sh" ]; then
     echo "PhasTest_API could not be found, installing..."
     mkdir -p $HOME/.local/bin
-    wget https://github.com/ansontwk/PhasTest_API/raw/main/phastest_api.sh -O $HOME/.local/bin/phastest_api.sh
+    wget https://raw.githubusercontent.com/ansontwk/PhasTest_API/refs/heads/main/Phastest_API.sh -O $HOME/.local/bin/phastest_api.sh
     chmod +x $HOME/.local/bin/phastest_api.sh
     condition=1
 else
