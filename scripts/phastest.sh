@@ -17,6 +17,9 @@ bash phastest_api.sh --submitjob --inputDir ./tmp/
 
 echo -e "\e[34mJob submitted.\e[0m"
 
+echo -e "\e[34mWaiting for the job to finish...\e[0m"
+sleep 60
+
 end=$((SECONDS+600))
 while [ $SECONDS -lt $end ]; do
     echo -e "\e[34mChecking job status...\e[0m"
@@ -29,15 +32,6 @@ while [ $SECONDS -lt $end ]; do
     sleep 30
 done
 
-if [ $SECONDS -ge $end ]; then
-    echo -e "\e[31mJob did not finish within 10 minutes.\e[0m"
-    exit 1
-fi
-
-if ! bash phastest_api.sh --getresults --outDir ./results/results_phastest/$filename; then
-    echo -e "\e[31mFailed to retrieve data from the server.\e[0m"
-    exit 1
-fi
 
 echo -e "\e[32mPhasTest has finished running\e[0m"
 
