@@ -12,7 +12,6 @@ conda activate defensefinder
 defense-finder update 
 
 echo "DefenseFinder is installed and ready to use."
-mkdir -p ../results/result_Finder/$filename
 
 defense-finder run -o ../results/result_Finder/$filename $file_
 
