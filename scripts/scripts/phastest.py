@@ -1,10 +1,16 @@
-import requests
 import json
 import os
 import sys
 import argparse
 import time
 import zipfile
+
+try:
+    import requests
+except ImportError:
+    print("The 'requests' library is not installed. Installing it now...")
+    os.system(f"{sys.executable} -m pip install requests")
+    import requests
 
 class bcolors:
     """
