@@ -50,18 +50,19 @@ while True:
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print(f"{current_time} - {bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
         print(f"{bcolors.OKGREY}{data['summary']}{bcolors.ENDC}")
+        file_name = os.path.splitext(args.file.split("/")[-1])[0]
         
         # Download the zip file
         zip_response = requests.get("https://" + data['zip'])
-        zip_filename = f"./results/results_phastest/{args.jobid}.zip"
+        zip_filename = f"./results/results_phastest/{file_name}.zip"
         
         with open(zip_filename, 'wb') as f:
             f.write(zip_response.content)
         
         # Unzip the file
         with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
-            zip_ref.extractall(f"./results/results_phastest/{args.jobid}")
+            zip_ref.extractall(f"./results/results_phastest/{file_name}")
         
-        print(f"{bcolors.OKGREEN}Results have been saved in results/results_phastest/{args.jobid}\n\n you can also view results at https://{data["url"]} {bcolors.ENDC}")
+        print(f"{bcolors.OKGREEN}Results have been saved in results/results_phastest/{file_name}\n\n you can also view results at https://{data["url"]} {bcolors.ENDC}")
         
         break
