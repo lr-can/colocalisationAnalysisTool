@@ -62,47 +62,54 @@ if not args.threads:
 print(f"""{bcolors.OKCYAN} Welcome to the colocalisation analysis tool! 
 This tool has been developed by a group of Master's students from the Claude Bernard Lyon 1 University, under the supervision of COLUZZI, Charles, and PLANTADY, Clarisse.
 {bcolors.ENDC}""")
-print(r"""                                                                                                                                
-                                                                                                   ++                                                                                                  
-                                                                                                 ++++++                                                                                                
-                                                                                                +++++++++                                                                                              
-                                                                                              +++++++++++++                                                                                            
-                                                                                            ++++++++++++++++                                                                                           
-                                                                                          +++++++      +++++++                                                                                         
-                                                                                       +++++++            +++++++                                                                                      
-                                                                           +++++++++++++++   +++++++========  ++++++++++++++++                                                                         
-                                                                           +++++++++++    ++++++++++++++=======+  ++++++++++++                                                                         
-                                                                           ++++++++     ++++++++++++++++++========   ++++ ++++                                                                         
-                                                                           +++++      +++++++++            ++=+=+==+      ++++                                                                         
-                                                                           +++++    *+++++++++    +++++++   ++++=+==+     ++++                                                                         
-                                                                           +++++   +*++++++++   ++++++++++   +++++++++    ++++                                                                         
-                                                                           +++++  *****+++++    +++++++++++   +++++++++   ++++                                                                         
-                                                                           +++++  ********+*    +++++++++++   ++++++++++  ++++                                                                         
-                                                                           +++++ ***********    *+++++++++   +++++++++++  ++++                                                                         
-                                                                           +++++ ************     +*+*+*     ++++++++++++ ++++                                                                         
-                                                                           +++++ *************             *+++++++++++++ ++++                                                                         
-                                                                     +++++++++++ #***************        *+++++++++++++++ ++++++++++                                                                   
-                                                                  ++++++++++++++ ##*#*************    **+++++++++++++++++ +++++++++++++                                                                
-                                                                    ++++++++++++ ###*#*#****# #********+**+*++++++++++++  +++++++++++                                                                  
-                                                                           +++++  #####*##  ********************+*+++++*  ++++                                                                         
-                                                                           +++++  ####### *#*******************++***+**   ++++                                                                         
-                                                                           +++++    #### ##*##*#********************+*    ++++                                                                         
-                                                                           +++++     ### ######*#*#******************     ++++                                                                         
-                                                                           +++++      ## #########*#*#**************      ++++                                                                         
-                                                                           +++++         #################********        ++++                                                                         
-                                                                           +++++++++++    *###################*    +++++  ++++                                                                         
-                                                                           +++++++++++++      ##############    +++++++++ ++++                                                                         
-                                                                           ++++++++++++++++                  +++++++++++++++++                                                                         
-                                                                           +++++++    ++++++++             ++++++++   ++++++++                                                                         
-                                                                           +++++        +++++++++       ++++++++        ++++++                                                                         
-                                                                           ++             ++++++++++++++++++++              ++                                                                         
-                                                                                             ++++++++++++++                                                                                            
-                                                                                                +++++++++                                                                                              
-                                                                                                  +++++                                                                                                
-                                                                                                  +++++                                                                                                
-                                                                                                  +++++                                                                                                
-                                                                                                   ++                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                                                           
+print(r"""                                                                                        
+                                        +x                                       
+                                      xxxxx                                       
+                                    xxx+xxxx                                       
+                                  xxxxxxxxxxxx                                     
+                                xxxxxxxxxxxxxxxx                                   
+                              xxxxxxxxxx+xxxxxxxx
+                             xxxxxxx        xxxxxxx
+                          xxxxxx                xxxxxx
+          xxxxxX       xxxxxx         ;;;;;;       xxxxxx
+          xxxxxxxxxxxxxxxx    xxx++;;;;;;;;::;::;::   xxxxxxxxxxxxxxx
+          xxxxxxxxxxxx      xxxxx++++++;;;;;;;;:;;::;:;   xxxxxxxxxxx+x
+          xxxxxx          xxxxxxxxxxx        +;;;;:;;::;;         +xxxx
+          xxxxxx        XXXxxxxxxx              ;;;;;;::::        xxxx+
+          xxxxxx      X$$$XXXXXx$     xxxx+xX     +;;;;;;;:;      xxxx+
+          xxxxxx     $$$$$$$XXX     xxxxxxxxxxx    +;;;;;;;;;     xxxxx
+          xxxxxx    $$$$$$$$$$     $xxxxxxxxxxx     +++;;;;;;;    xxxxx
+          xxxxxx   &$$$$$$$$$$     $Xxxxxxxxxxx     x++++++;;++   +xxxx
+          xxxxxx  &&&&$$$$$$$$     $XXXXXXXxxxx     xxxxxx+++++   xxxxx
+          xxxxxx  &&&&&&&&$$$$      $$$X$$XXXX$     xxxxxxxxxx+x  xxxxx
+          xxxxxx  &&&&&&&&&&&$$       $$$$$$$      xxxxxxxxxxxxx  xxxxx
+          xxxxxx  &&&&&&&&&&&&&&                  Xxxxxxxxxxxxxxx xxxxx                    +--------------------------------------------+
+          xxxxxx  &&&&&&&&&&&&&&&&              XXXXXXXxxxxxxxxxx xxxxx                    | Master's in Bioinformatics                 |
+  xxxxxxxxxxxxxx  &&&&&&&&&&&&&&&&&&&         $X$$$$$XXXXXXXXxXxx xxxxxxxxxxxxx            | University Claude Bernard - Lyon 1         |
+xxxxxxxxxxxxxxxx  &&&&&&&&&&&&&&&&&      $$$$$$$$$$$$$$$$XXXXXXx  xxxxxxxxxxxxxxx          | Colocalisation Analysis Tool               |
+  xxxxxxxxxxxxxx  &&&&&&&&&&&&&   &&&&&&&&&&$$$$$$$$$$$$$$$$X$$X  xxxxxxxxxxxxx            +--------------------------------------------+
+          Xxxxxx   &&&&&&&&&&  &&&&&&&&&&&&&&&&&$$$$$$$$$$$$$$$   xxxxx
+          xxxxxx   &&&&&&&&  &&&&&&&&&&&&&&&&&&&&&&&&&$$$$$$$$$   xxxxx
+          xxxxxx    &&&&&&  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&$$$$    xxxxx
+          xxxxxx     &&&&& &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&$     xxxxx
+          xxxxxx      &&&  &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&       xxxxx
+          xxxxxx           &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&        xxxxx
+          xxxxxx           &&&&&&&&&&&&&&&&&&&&&&&&&&&&&          xxxxx
+          xxxxxx  xxx       &&&&&&&&&&&&&&&&&&&&&&&&&&      xx    xxxxx
+          xxxxxxxxxxxxxxx       &&&&&&&&&&&&&&&&&&      xxxxxxxx  xxxxx
+          xxxxxxxxxxxxxxxxx                          xxxxxxxxxxxx xxxxx
+          xxxxxxxxxxxxxxxxxxxx                     xxxxxxxxxxxxXxxxxxxx
+          xxxxxxxxx    xxxxxxxxxx               xxxxxxxxx    Xxxxxxxxxx
+           xxxxx          xxxxxxxxxx         xxxxxxxxx           xxxxxx
+           xx               xxxxxxxxxxx   xxxxxxxxxx                xxx
+                               xxxxxxxxxxxxxxxxxx
+                                  xxxxxxxxxxxxx
+                                    xxxxxxxxx
+                                     xxxxxx
+                                     xxxxxx
+                                      xxx+x
+                                      +xxx
+                                        ;
       """)
 print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{"s" if len(files) > 1 else ""} {bcolors.ENDC}")
 for file_ in files:
