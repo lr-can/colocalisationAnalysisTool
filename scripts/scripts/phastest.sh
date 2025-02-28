@@ -19,6 +19,8 @@ echo -e "\e[34mJob submitted.\e[0m"
 
 echo -e "\e[34mWaiting for the job to finish...\e[0m"
 
+mkdir -p ./results/results_phastest/
+
 job_json_file=$(ls ./SubmissionJson/* | head -n 1)
 job_id=$(jq -r '.job_id' "$job_json_file")
 python3 ./scripts/phastest.py -f ./tmp/"${filename}" -j "$job_id"
