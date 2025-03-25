@@ -104,7 +104,10 @@ for file_ in files:
     result_phastest = "./results/results_phastest/" if args.phastest else None
     file_name = os.path.basename(file_).split(".")[0]
 
+    subprocess.check_call(["conda activate colocATool".split(' ')])
     merge.main(result_finder, result_genomad, file_name, result_phastest)
+    subprocess.check_call(["conda deactivate".split(' ')])
+    print(f"{bcolors.OKGREEN} Results merged for {file_} {bcolors.ENDC}")
 
 print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
 

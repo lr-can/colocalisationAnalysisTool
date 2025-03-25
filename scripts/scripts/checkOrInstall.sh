@@ -76,6 +76,14 @@ else
     echo "genomad is already installed"
 fi
 
+if ! conda env list | grep -q 'colocATool'; then
+    echo "colocATool merging and vizualisation environement could not be found, installing..."
+    conda create -n colocATool -c conda-forge pandas plotly ipywidgets
+    condition = 1
+else
+    echo "colocATool is already installed"
+fi
+
 
 source ~/.bashrc
 if [ $condition -eq 1 ]
