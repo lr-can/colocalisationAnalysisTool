@@ -22,8 +22,8 @@ def defense_function(defense_finder_path):
 def finder(result_file, defense_finder_prt):
     correspondance = defense_function(defense_finder_path=defense_finder_prt)
     defense = pd.read_csv(result_file, sep= "\t")
-    begin_position = [correspondance[sys_beg]["begin"] for sys_beg in defense["sys_beg"]]
-    end_position = [correspondance[sys_end]["end"] for sys_end in defense["sys_end"]]
+    begin_position = [correspondance[sys_beg]["begin"] for sys_beg in defense["hit_id"]]
+    end_position = [correspondance[sys_end]["end"] for sys_end in defense["hit_id"]]
     defense["beg_pos"] = begin_position
     defense["end_pos"] = end_position
 
@@ -54,10 +54,13 @@ def genomad(genomad_path):
     topology_list = []
 
     for row in df.itertuples():
+        """
         identifier, coordinates, tax, topology = row.seq_name, row.coordinates, row.taxonomy, row.topology 
         splitted_coords = coordinates.split("-")
         sys_beg = int(splitted_coords[0])
-        sys_end = int(splitted_coords[1])
+        sys_end = int(splitted_coords[1])"
+        """
+        identifier, sys_beg, sys_end, tax = row.seq_name, row.start, row.stop, row.taxname
 
         identifier_ = identifier.split("|")
         
@@ -104,12 +107,12 @@ def phastest(phastest_path):
 
 def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, base_name, path_to_phastest_result_folder=None):
     # Charger les résultats de Defense Finder
-    defense_finder_tsv = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*_defense_finder_systems.tsv")[0]
+    defense_finder_tsv = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*_defense_finder_genes.tsv")[0]
     defense_finder_prt = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*.prt")[0]
     defense_df = finder(defense_finder_tsv, defense_finder_prt)
     
     # Charger les résultats de Genomad
-    genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}/*_summary/*_virus_summary.tsv")[0]
+    genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}/*_summary/*_virus_genes.tsv")[0]
     genomad_df = genomad(genomad_path)
 
     # Charger et fusionner les résultats de Phastest si fournis
