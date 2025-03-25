@@ -35,6 +35,7 @@ def parse_arguments():
     parser.add_argument('-d', '--directory', type=str, help='Input directory if you want to run on multiple files')
     parser.add_argument('-t', '--threads', type=int, help='Number of threads to use for geNomad')
     parser.add_argument('-p', '--phastest', action='store_true', help='Include phastest in the analysis')
+
     return parser.parse_args()
 
 args = parse_arguments()
@@ -97,7 +98,13 @@ for file_ in files:
         print(f"{bcolors.OKGREEN} Phastest finished for {file_} {bcolors.ENDC}")
     print(f"{bcolors.OKGREEN} All analyses finished for {file_} {bcolors.ENDC}")
 
+    print(f"{bcolors.OKCYAN} Merging results for {file_} {bcolors.ENDC}")
+    result_finder = "./results/result_Finder/"
+    result_genomad = "./results/results_genomad/"
+    result_phastest = "./results/results_phastest/" if args.phastest else None
+    file_name = os.path.basename(file_).split(".")[0]
 
+    merge.main(result_finder, result_genomad, file_name, result_phastest)
 
 print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
 
