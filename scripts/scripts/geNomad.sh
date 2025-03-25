@@ -25,7 +25,7 @@ fi
 echo "Genomad is installed and ready to use."
 
 if [ -d "./results/results_genomad/$filename" ]; then
-  echo -e "\e[31mOutput directory already exists for $filename, skipping Genomad step.\e[0m"
+  echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping Genomad step.\e[0m"
   conda deactivate
   exit 0
 fi

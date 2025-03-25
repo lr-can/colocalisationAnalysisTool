@@ -14,7 +14,7 @@ defense-finder update
 echo "DefenseFinder is installed and ready to use."
 
 if [ -d "./results/result_Finder/$filename" ]; then
-    echo -e "\e[31moutput directory already exists for $filename, skipping DefenseFinder step.\e[0m"
+    echo -e "\e[31mWARNING : output directory already exists for $filename, skipping DefenseFinder step.\e[0m"
     conda deactivate
     exit 0
 fi

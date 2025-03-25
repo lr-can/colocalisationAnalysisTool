@@ -14,7 +14,7 @@ for f in ./tmp/*; do
 done
 
 if [ -d "./results/result_Finder/$filename" ]; then
-    echo -e "\e[31mOutput directory already exists for $filename, skipping DefenseFinder step.\e[0m"
+    echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping DefenseFinder step.\e[0m"
     exit 0
 fi
 
