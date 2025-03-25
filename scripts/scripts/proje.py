@@ -42,8 +42,8 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
     genomad_df["sys_end"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[1]))
     
     # Fusionner les résultats Defense Finder et Genomad
-    genomad_df["sys_beg"] = defense_df["sys_beg"].astype(int)
-    genomad_df["sys_end"] = defense_df["sys_end"].astype(int)
+    genomad_df["sys_beg"] = genomad_df["sys_beg"].astype(int)
+    genomad_df["sys_end"] = genomad_df["sys_end"].astype(int)
     merged_df = pd.merge(defense_df, genomad_df, on=["sys_beg", "sys_end"], how="outer")
     
     # Charger et fusionner les résultats de Phastest si fournis
