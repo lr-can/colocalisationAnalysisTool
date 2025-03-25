@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Assign arguments to variables
-result_finder=$1
-result_genomad=$2
-file_name=$3
-result_phastest=$4
+result_finder="$1"
+result_genomad="$2"
+file_name="$3"
+result_phastest="$4"
 
 # Activate the conda environment
 # Initialize conda
