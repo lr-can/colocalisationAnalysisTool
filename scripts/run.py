@@ -100,7 +100,7 @@ for file_ in files:
     print(f"{bcolors.OKCYAN} Merging results for {file_} {bcolors.ENDC}")
     result_finder = "./results/result_Finder/"
     result_genomad = "./results/results_genomad/"
-    result_phastest = "./results/results_phastest/" if args.phastest else None
+    result_phastest = "./results/results_phastest/" if args.phastest else ""
     file_name = os.path.basename(file_).split(".")[0]
 
     subprocess.check_call(['bash' , './scripts/merge.sh', result_finder, result_genomad, file_name, result_phastest])

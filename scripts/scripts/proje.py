@@ -45,7 +45,7 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
     merged_df = pd.merge(defense_df, genomad_df, on=["sys_beg", "sys_end"], how="outer")
     
     # Charger et fusionner les résultats de Phastest si fournis
-    if path_to_phastest_result_folder:
+    if path_to_phastest_result_folder != "":
         phastest_path = f"{path_to_phastest_result_folder}/{base_name}/predicted_phage_regions.json"
         phastest_df = pd.read_csv(phastest_path, sep="\t")
         merged_df = pd.merge(merged_df, phastest_df, on=["sys_beg", "sys_end"], how="outer")
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument("path_to_defense_finder_result_folder", type=str, help="Path to the folder containing Defense Finder results")
     parser.add_argument("path_to_genomad_result_folder", type=str, help="Path to the folder containing Genomad results")
     parser.add_argument("base_name", type=str, help="Base name for the result files")
-    parser.add_argument("--path_to_phastest_result_folder", type=str, help="Path to the folder containing Phastest results", default=None)
+    parser.add_argument("--path_to_phastest_result_folder", type=str, help="Path to the folder containing Phastest results", default="")
 
     args = parser.parse_args()
 
