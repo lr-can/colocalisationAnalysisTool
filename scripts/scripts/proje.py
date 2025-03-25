@@ -58,14 +58,16 @@ def genomad(genomad_path):
         splitted_coords = coordinates.split("-")
         sys_beg = int(splitted_coords[0])
         sys_end = int(splitted_coords[1])
+
+        identifier_ = identifier.split("|")
         
-        nc_value = identifier.split("|")[0]
+        nc_value = identifier_[0]
 
         nc_list.append(nc_value)
         sys_beg_list.append(sys_beg)
         sys_end_list.append(sys_end)
         taxonomy.append(tax)
-        topology_list.append(topology)
+        topology_list.append(identifier.replace(nc_value, "").replace("|", ""))
     
     origin_list = ["GeNomad"] * len(topology_list)
     
