@@ -13,7 +13,7 @@ conda init
 conda activate colocATool
 
 # Run the Python script with the provided arguments
-python scripts/proje.py "$result_finder" "$result_genomad" "$file_name" "$result_phastest"
+python scripts/proje.py "$result_finder" "$result_genomad" "$file_name" --path_to_phastest_result_folder "$result_phastest"
 
 # Deactivate the conda environment
 conda deactivate
