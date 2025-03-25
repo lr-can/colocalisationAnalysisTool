@@ -13,6 +13,11 @@ for f in ./tmp/*; do
     mv -- "$f" "${f%.gz}.fna"
 done
 
+if [ -d "./results/result_Finder/$filename" ]; then
+    echo -e "\e[31mOutput directory already exists for $filename, skipping DefenseFinder step.\e[0m"
+    exit 0
+fi
+
 bash phastest_api.sh --submitjob --inputDir ./tmp/
 
 echo -e "\e[34mJob submitted.\e[0m"

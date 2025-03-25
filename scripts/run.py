@@ -2,7 +2,7 @@ import sys
 import subprocess
 import argparse
 import os
-from scripts import projet as merge
+from scripts import proje as merge
 
 class bcolors:
     """

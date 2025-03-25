@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 from functools import reduce
+import glob
 
 def defense_function(defense_finder_path):
     with open(defense_finder_path) as fichier: 
@@ -26,14 +27,14 @@ def finder(defense_finder_tsv, defense_finder_prt):
     
     return defense
 
-def merge(path_to_defense_finder_result_folder, path_to_genomad_result_folder, base_name, path_to_phastest_result_folder=None):
+def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, base_name, path_to_phastest_result_folder=None):
     # Charger les résultats de Defense Finder
-    defense_finder_tsv = f"{path_to_defense_finder_result_folder}/{base_name}_defense_finder_systems.tsv"
-    defense_finder_prt = f"{path_to_defense_finder_result_folder}/{base_name}.fa.prt"
+    defense_finder_tsv = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*_defense_finder_systems.tsv")
+    defense_finder_prt = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*.fa.prt")
     defense_df = finder(defense_finder_tsv, defense_finder_prt)
     
     # Charger les résultats de Genomad
-    genomad_path = f"{path_to_genomad_result_folder}/{base_name}_summary/{base_name}_virus_summary.tsv"
+    genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}*_summary/*_virus_summary.tsv")[0]
     genomad_df = pd.read_csv(genomad_path, sep="\t")
     
     genomad_df["sys_beg"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[0]))
@@ -44,7 +45,7 @@ def merge(path_to_defense_finder_result_folder, path_to_genomad_result_folder, b
     
     # Charger et fusionner les résultats de Phastest si fournis
     if path_to_phastest_result_folder:
-        phastest_path = f"{path_to_phastest_result_folder}/{base_name}_phastest_results.tsv"
+        phastest_path = f"{path_to_phastest_result_folder}/{base_name}/predicted_phage_regions.json"
         phastest_df = pd.read_csv(phastest_path, sep="\t")
         merged_df = pd.merge(merged_df, phastest_df, on=["sys_beg", "sys_end"], how="outer")
     

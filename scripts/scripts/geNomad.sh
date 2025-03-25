@@ -23,6 +23,12 @@ else
 fi
 
 echo "Genomad is installed and ready to use."
+
+if [ -d "./results/results_genomad/$filename" ]; then
+  echo -e "\e[31mOutput directory already exists for $filename, skipping Genomad step.\e[0m"
+  conda deactivate
+  exit 0
+fi
 mkdir -p ./results/results_genomad/$filename
 genomad end-to-end --threads "$threads" "$file_" "./results/results_genomad/$filename" genomad_db
 
