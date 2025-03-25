@@ -2,6 +2,7 @@ import pandas as pd
 import json
 from functools import reduce
 import glob
+import argparse
 
 def defense_function(defense_finder_path):
     with open(defense_finder_path) as fichier: 
@@ -50,3 +51,22 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
         merged_df = pd.merge(merged_df, phastest_df, on=["sys_beg", "sys_end"], how="outer")
     
     return merged_df
+
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser(description="Process defense finder, genomad, and optionally phastest results.")
+    parser.add_argument("path_to_defense_finder_result_folder", type=str, help="Path to the folder containing Defense Finder results")
+    parser.add_argument("path_to_genomad_result_folder", type=str, help="Path to the folder containing Genomad results")
+    parser.add_argument("base_name", type=str, help="Base name for the result files")
+    parser.add_argument("--path_to_phastest_result_folder", type=str, help="Path to the folder containing Phastest results", default=None)
+
+    args = parser.parse_args()
+
+    result = main(
+        args.path_to_defense_finder_result_folder,
+        args.path_to_genomad_result_folder,
+        args.base_name,
+        args.path_to_phastest_result_folder
+    )
+
+    print(result)

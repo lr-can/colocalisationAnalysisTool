@@ -62,7 +62,7 @@ if ! conda env list | grep -q 'defensefinder'; then
     echo "defense-finder could not be found, installing..."
     pip install colorlog
     conda create --name defensefinder -c bioconda -c conda-forge defense-finder -y
-    condition = 1
+    condition=1
 else
     echo "defense-finder is already installed"
 fi
@@ -71,7 +71,7 @@ fi
 if ! conda env list | grep -q 'genomad'; then
     echo "genomad could not be found, installing..."
     conda create -n genomad -c conda-forge -c bioconda genomad -y
-    condition = 1
+    condition=1
 else
     echo "genomad is already installed"
 fi
@@ -79,7 +79,7 @@ fi
 if ! conda env list | grep -q 'colocATool'; then
     echo "colocATool merging and vizualisation environement could not be found, installing..."
     conda create -n colocATool -c conda-forge pandas plotly ipywidgets
-    condition = 1
+    condition=1
 else
     echo "colocATool is already installed"
 fi
