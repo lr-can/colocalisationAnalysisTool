@@ -29,6 +29,7 @@ def finder(result_file, defense_finder_prt):
 
     nc_list = []
     sys_beg_list = []
+    sys_id = []
     sys_end_list = []
     type_list = []
     origin_list = []
@@ -38,10 +39,11 @@ def finder(result_file, defense_finder_prt):
         sys_beg_list.append(int(row.beg_pos))
         sys_end_list.append(int(row.end_pos))
         type_list.append(row.subtype)
+        sys_id.append(row.sys_id.replace(f"{row.replicon}_", ""))
     
     origin_list = ["DefenseFinder"] * len(sys_beg_list)
   
-    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
 
 def genomad(genomad_path):
 
@@ -52,6 +54,7 @@ def genomad(genomad_path):
     sys_end_list = []
     taxonomy = []
     topology_list = []
+    sys_id = []
 
     for row in df.itertuples():
         """
@@ -63,6 +66,7 @@ def genomad(genomad_path):
         identifier, sys_beg, sys_end, tax = row.gene, row.start, row.end, row.taxname
 
         identifier_ = identifier.split("|")
+        sys_id.append(identifier_[1] + "_" + identifier_[2])
         
         nc_value = identifier_[0]
 
@@ -75,7 +79,7 @@ def genomad(genomad_path):
     origin_list = ["GeNomad"] * len(topology_list)
     
     
-    return pd.DataFrame({"nom": nc_list, "type": topology_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+    return pd.DataFrame({"nom": nc_list, "type": topology_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
 
 def phastest(phastest_path):
 
@@ -83,6 +87,7 @@ def phastest(phastest_path):
         data = json.load(file)
     
     nc_list = []
+    sys_id = []
     sys_beg_list = []
     sys_end_list = []
     type_list = []
@@ -95,13 +100,14 @@ def phastest(phastest_path):
         nc_value = region["most_common_phage"]
     
         nc_list.append(nc_value)
+        sys_id.append(nc_value)
         sys_beg_list.append(int(sys_beg))
         sys_end_list.append(int(sys_end))
         type_list.append("phage")
         origin_list.append("Phastest")
     
     
-    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
  
  
 
