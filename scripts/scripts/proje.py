@@ -23,8 +23,8 @@ def finder(defense_finder_tsv, defense_finder_prt):
     correspondance = defense_function(defense_finder_prt)
     defense = pd.read_csv(defense_finder_tsv, sep="\t")
     
-    defense["beg_pos"] = defense["sys_beg"].map(lambda x: correspondance.get(x, {}).get("begin", None))
-    defense["end_pos"] = defense["sys_end"].map(lambda x: correspondance.get(x, {}).get("end", None))
+    defense["beg_pos"] = defense["sys_beg"].map(lambda x: correspondance.get(str(x), {}).get("begin", None))
+    defense["end_pos"] = defense["sys_end"].map(lambda x: correspondance.get(str(x), {}).get("end", None))
     
     return defense
 
@@ -42,6 +42,8 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
     genomad_df["sys_end"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[1]))
     
     # Fusionner les résultats Defense Finder et Genomad
+    genomad_df["sys_beg"] = defense_df["sys_beg"].astype(int)
+    genomad_df["sys_end"] = defense_df["sys_end"].astype(int)
     merged_df = pd.merge(defense_df, genomad_df, on=["sys_beg", "sys_end"], how="outer")
     
     # Charger et fusionner les résultats de Phastest si fournis
