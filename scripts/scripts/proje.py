@@ -19,14 +19,86 @@ def defense_function(defense_finder_path):
             })
         return output_dict
 
-def finder(defense_finder_tsv, defense_finder_prt):
-    correspondance = defense_function(defense_finder_prt)
-    defense = pd.read_csv(defense_finder_tsv, sep="\t")
+def finder(result_file, defense_finder_prt):
+    correspondance = defense_function(defense_finder_path=defense_finder_prt)
+    defense = pd.read_csv(result_file, sep= "\t")
+    begin_position = [correspondance[sys_beg]["begin"] for sys_beg in defense["sys_beg"]]
+    end_position = [correspondance[sys_end]["end"] for sys_end in defense["sys_end"]]
+    defense["beg_pos"] = begin_position
+    defense["end_pos"] = end_position
+
+    nc_list = []
+    sys_beg_list = []
+    sys_end_list = []
+    type_list = []
+    origin_list = []
+
+    for row in defense.itertuples():
+        nc_list.append("_".join(row.sys_id.split("_")[:2]))
+        sys_beg_list.append(int(row.beg_pos))
+        sys_end_list.append(int(row.end_pos))
+        type_list.append(row.subtype)
     
-    defense["beg_pos"] = defense["sys_beg"].map(lambda x: correspondance.get(str(x), {}).get("begin", None))
-    defense["end_pos"] = defense["sys_end"].map(lambda x: correspondance.get(str(x), {}).get("end", None))
+    origin_list = ["DefenseFinder"] * len(sys_beg_list)
+  
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+
+def genomad(genomad_path):
+
+    df = pd.read_csv(genomad_path, sep= "\t")
     
-    return defense
+    nc_list = []
+    sys_beg_list = []
+    sys_end_list = []
+    taxonomy = []
+    topology_list = []
+
+    for row in df.itertuples():
+        identifier, coordinates, tax, topology = row.seq_name, row.coordinates, row.taxonomy, row.topology 
+        splitted_coords = coordinates.split("-")
+        sys_beg = int(splitted_coords[0])
+        sys_end = int(splitted_coords[1])
+        
+        nc_value = identifier.split("|")[0]
+
+        nc_list.append(nc_value)
+        sys_beg_list.append(sys_beg)
+        sys_end_list.append(sys_end)
+        taxonomy.append(tax)
+        topology_list.append(topology)
+    
+    origin_list = ["GeNomad"] * len(topology_list)
+    
+    
+    return pd.DataFrame({"nom": nc_list, "type": topology_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+
+def phastest(phastest_path):
+
+    with open(phastest_path) as file:
+        data = json.load(file)
+    
+    nc_list = []
+    sys_beg_list = []
+    sys_end_list = []
+    type_list = []
+    origin_list = []
+    
+    for region in data:
+        sys_beg = region["start"] 
+        sys_end = region["stop"]
+    
+        nc_value = region["most_common_phage"]
+    
+        nc_list.append(nc_value)
+        sys_beg_list.append(int(sys_beg))
+        sys_end_list.append(int(sys_end))
+        type_list.append("phage")
+        origin_list.append("Phastest")
+    
+    
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list})
+ 
+ 
 
 def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, base_name, path_to_phastest_result_folder=None):
     # Charger les résultats de Defense Finder
@@ -36,22 +108,20 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
     
     # Charger les résultats de Genomad
     genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}/*_summary/*_virus_summary.tsv")[0]
-    genomad_df = pd.read_csv(genomad_path, sep="\t")
-    
-    genomad_df["sys_beg"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[0]))
-    genomad_df["sys_end"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[1]))
-    
-    # Fusionner les résultats Defense Finder et Genomad
-    genomad_df["sys_beg"] = genomad_df["sys_beg"].astype(int)
-    genomad_df["sys_end"] = genomad_df["sys_end"].astype(int)
-    merged_df = pd.merge(defense_df, genomad_df, on=["sys_beg", "sys_end"], how="outer")
-    
+    genomad_df = genomad(genomad_path)
+
     # Charger et fusionner les résultats de Phastest si fournis
     if path_to_phastest_result_folder != "":
         phastest_path = f"{path_to_phastest_result_folder}/{base_name}/predicted_phage_regions.json"
-        phastest_df = pd.read_csv(phastest_path, sep="\t")
-        merged_df = pd.merge(merged_df, phastest_df, on=["sys_beg", "sys_end"], how="outer")
+        phastest_df = phastest(phastest_path)
+    else:
+        phastest_df = pd.DataFrame(columns=["nom", "type", "origin", "begin", "end"])
     
+    # Fusion des dataframes
+    dfs = [genomad_df, phastest_df, defense_df]
+    merged_df = reduce(lambda left, right: pd.merge(left, right, on=None, how='outer'), dfs)
+    merged_df.to_csv(path_or_buf="./merged_res.csv", sep=",", index=False)
+    print("Merged results saved to ./merged_res.csv")
     return merged_df
 
 if __name__ == "__main__":
