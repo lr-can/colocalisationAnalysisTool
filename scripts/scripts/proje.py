@@ -30,8 +30,8 @@ def finder(defense_finder_tsv, defense_finder_prt):
 
 def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, base_name, path_to_phastest_result_folder=None):
     # Charger les résultats de Defense Finder
-    defense_finder_tsv = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*_defense_finder_systems.tsv")
-    defense_finder_prt = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*.fa.prt")
+    defense_finder_tsv = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*_defense_finder_systems.tsv")[0]
+    defense_finder_prt = glob.glob(f"{path_to_defense_finder_result_folder}/{base_name}/*.fa.prt")[0]
     defense_df = finder(defense_finder_tsv, defense_finder_prt)
     
     # Charger les résultats de Genomad
