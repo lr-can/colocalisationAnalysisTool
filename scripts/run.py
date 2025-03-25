@@ -2,6 +2,7 @@ import sys
 import subprocess
 import argparse
 import os
+from scripts import projet as merge
 
 class bcolors:
     """
@@ -49,7 +50,7 @@ if args.directory:
         filepath = os.path.join(args.directory, filename)
         if os.path.islink(filepath):
             filepath = os.path.realpath(filepath)
-        if ".fa" in filename or ".fasta" in filename:
+        if ".fa" in filename or ".fasta" or ".fna" in filename:
             files.append(filepath)
 elif args.file:
     if os.path.islink(args.file):
@@ -95,6 +96,8 @@ for file_ in files:
         subprocess.check_call(["bash", "./scripts/phastest.sh", file_])
         print(f"{bcolors.OKGREEN} Phastest finished for {file_} {bcolors.ENDC}")
     print(f"{bcolors.OKGREEN} All analyses finished for {file_} {bcolors.ENDC}")
+
+
 
 print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
 
