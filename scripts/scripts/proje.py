@@ -35,7 +35,7 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
     defense_df = finder(defense_finder_tsv, defense_finder_prt)
     
     # Charger les résultats de Genomad
-    genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}*_summary/*_virus_summary.tsv")[0]
+    genomad_path = glob.glob(f"{path_to_genomad_result_folder}/{base_name}/*_summary/*_virus_summary.tsv")[0]
     genomad_df = pd.read_csv(genomad_path, sep="\t")
     
     genomad_df["sys_beg"] = genomad_df["coordinates"].apply(lambda x: int(x.split("-")[0]))
