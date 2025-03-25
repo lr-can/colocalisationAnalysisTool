@@ -60,7 +60,7 @@ def genomad(genomad_path):
         sys_beg = int(splitted_coords[0])
         sys_end = int(splitted_coords[1])"
         """
-        identifier, sys_beg, sys_end, tax = row.seq_name, row.start, row.stop, row.taxname
+        identifier, sys_beg, sys_end, tax = row.gene, row.start, row.stop, row.taxname
 
         identifier_ = identifier.split("|")
         
