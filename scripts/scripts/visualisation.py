@@ -30,7 +30,7 @@ def identify_interest_zones(dataframe):
     Returns:
         pd.DataFrame: A dataframe containing the zones of interest.
     """
-    tolerance = 100000
+    tolerance = 0.01 * row["end"]
     zones_of_interest = []
 
     for index, row in dataframe.iterrows():
