@@ -13,8 +13,8 @@ for f in ./tmp/*; do
     mv -- "$f" "${f%.gz}.fna"
 done
 
-if [ -d "./results/result_Finder/$filename" ]; then
-    echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping DefenseFinder step.\e[0m"
+if [ -d "./results/results_phastest/$filename" ]; then
+    echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping Phastest step.\e[0m"
     exit 0
 fi
 

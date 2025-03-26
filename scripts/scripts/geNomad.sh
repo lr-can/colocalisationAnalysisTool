@@ -7,7 +7,8 @@ filename=$(basename -- "$file_")
 filename="${filename%%.*}"
 
 # Initialize conda
-eval "$(conda shell.bash hook)"
+eval "$(conda shell.bash hook)" > /dev/null 2>&1
+conda init > /dev/null 2>&1
 
 if conda env list | grep -q 'genomad'; then
   echo "Activating existing conda environment 'genomad'"

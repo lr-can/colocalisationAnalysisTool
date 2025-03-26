@@ -5,8 +5,8 @@ filename=$(basename -- "$file_")
 filename="${filename%%.*}"
 
 # Initialize conda
-eval "$(conda shell.bash hook)"
-conda init
+eval "$(conda shell.bash hook)" > /dev/null 2>&1
+conda init > /dev/null 2>&1
 conda activate defensefinder
 
 defense-finder update 
