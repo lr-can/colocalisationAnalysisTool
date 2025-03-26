@@ -64,25 +64,24 @@ print(f"""{bcolors.OKCYAN} Welcome to the colocalisation analysis tool!
 This tool has been developed by a group of Master's students from the Claude Bernard Lyon 1 University, under the supervision of COLUZZI, Charles, and PLANTADY, Clarisse.
 {bcolors.ENDC}""")
 print(r"""
-                    ╔,
-                 ╦╫╫╫╬w
-              ,╦Ñ╩" `╙╩╫w
-     ╔╥,,  ,⌂╝"  ,,╓╓,, `╙ªw  ,,,╓╥
-     ╟╫Ñ╙╨"  ╓Φ▓╫╣╝╜╙╜╝╬╫Ñ╦, "╩╨╙╫╫
-     ╟╫╡   ╓▓▓▓▌   ╓╓,  `╬╫╫K,   ╫╫
-     ╟╫╡  ╣▓▓▓▌   ▓▓▓▓▓   ╫╫╫╫╕  ╫╫
-     ╠╫╡ ╢▓▓▓▓▌   ╣▓▓▓▌   ╫╫╫╫╫⌐ ╫╫                   ╔══════════════════════════════════╗
-   <<]╫╡ ▓▓▓▓▓▓▄        ,╣▓▓▓▓▓╡ ╫╫>>                 ║   Colocalization Analysis Tool   ║
- <<<<╫╫╡ ██▓▓▓▓█▀M  ,╓▄▓▓▓▓▓▓▓▓M ╫╫>>>>               ║ DefenseFinder, Genomad, Phastest ║
-   <<]╫╡ ╙███▀`╓Φ▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ╫╫>>                 ║ Master's degree in bioinformatics║
-     j╫╡  ╙█▌ ▓███▓▓▓▓▓▓▓▓▓▓▓▌   ╫╫                   ║ University Claude Bernard Lyon 1 ║
-     j╫╡     ║█████████▓▓▓▓█╨    ╫╫                   ╚══════════════════════════════════╝
-     j╫╡,Nw,  ╙▀████████▀▀` ,╔╦  ╫╫
-     j╫╫╫Å╜╩Ñ╦,          ╓╦╬Å╨╬╫╦╫╫
-     :╩`     ╙╬╫K╦   ,╔Φ╫Å"     "╩H
-                "╩╫Ñ╫╦╫Å"
                    ╫╫
-                   ╬╨
+     ╫╫          ╫╫╫╫╫╫          ╫╫
+     ╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫
+     ╫╫          ░░░░░░░         ╫╫
+     ╫╫      ░░░░░░░░░░░░░░░     ╫╫
+     ╫╫    ▓▓▓▓▌        ▒▒▒▒▒▒▒  ╫╫
+     ╫╫   ▓▓▓▓▌   █▒▒░░   ▒▒▒▒▒  ╫╫
+     ╫╫   ▓▓▓▓▌   ███▒▒   ▒▒▒▒▒▒ ╫╫                   ╔══════════════════════════════════╗
+   ╡╡╫╫  ▓▓▓▓▓▓▄         ▓▓▓▓▓▓▓ ╫╫╞╞                 ║   Colocalization Analysis Tool   ║
+ ╡╡╡╡╫╫  ██████▀     ▓▓▓▓▓▓▓▓▓▓▓ ╫╫╞╞╞╞               ║ DefenseFinder, Genomad, Phastest ║
+   ╡╡╫╫  ████▀   ▓▓▓▓▓▓▓▓▓▓▓▓▓▓  ╫╫╞╞                 ║ Master's degree in bioinformatics║
+     ╫╫   ██▌  ███▓▓▓▓▓▓▓▓▓▓▓▓   ╫╫                   ║ University Claude Bernard Lyon 1 ║
+     ╫╫       █████████▓▓▓▓▓▓    ╫╫                   ╚══════════════════════════════════╝
+     ╫╫        ██████████        ╫╫
+     ╫╫╫╫╫╫╫╫╫╫          ╫╫╫╫╫╫╫╫╫╫
+     ╫╫      ╫╫╫╫╫   ╫╫╫╫╫╫      ╫╫
+                ╫╫╫╫╫╫╫╫
+                   ╫╫
       """)
 print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{"s" if len(files) > 1 else ""} {bcolors.ENDC}")
 for file_ in files:
