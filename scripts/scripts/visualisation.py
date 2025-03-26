@@ -48,6 +48,6 @@ def identify_interest_zones(dataframe, tolerance):
 
     return pd.DataFrame(zones_of_interest)
 
-zones_of_interest = identify_interest_zones(df)
-print(f"Zones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:")
+zones_of_interest = identify_interest_zones(df, tolerance)
+print(f"\033[96mZones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:\033[0m")
 print(zones_of_interest)
