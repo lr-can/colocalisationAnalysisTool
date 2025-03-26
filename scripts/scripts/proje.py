@@ -153,4 +153,4 @@ if __name__ == "__main__":
         args.path_to_phastest_result_folder
     )
 
-    print(result)
+    print(f"The unfiltered merging results in {len(result["nom"])} rows.")

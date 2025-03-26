@@ -21,8 +21,9 @@ def parse_args():
 args = parse_args()
 
 df = pd.read_csv(args.file, sep=",")
+tolerance = 0.01 * max(df['end'])
 
-def identify_interest_zones(dataframe):
+def identify_interest_zones(dataframe, tolerance):
     """
     This function identifies the zones of interest in the dataframe, i.e. the provirus for which defenseFinder has found a system nearby.
     Args:
@@ -30,7 +31,6 @@ def identify_interest_zones(dataframe):
     Returns:
         pd.DataFrame: A dataframe containing the zones of interest.
     """
-    tolerance = 0.01 * max(dataframe['end'])
     zones_of_interest = []
 
     for index, row in dataframe.iterrows():
@@ -49,4 +49,5 @@ def identify_interest_zones(dataframe):
     return pd.DataFrame(zones_of_interest)
 
 zones_of_interest = identify_interest_zones(df)
+print(f"Zones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:")
 print(zones_of_interest)
