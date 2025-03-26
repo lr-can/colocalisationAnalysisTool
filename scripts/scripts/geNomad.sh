@@ -16,28 +16,53 @@ fi
 conda activate genomad
 
 if [ ! -d "genomad_db" ]; then
-  echo "Directory 'genomad_db' does not exist. Creating directory and downloading database."
+  echo -e "\e[36mDirectory 'genomad_db' does not exist. Creating directory and downloading database.\e[0m"
   if ! genomad download-database .; then
     echo -e "\e[33mFailed to download database using genomad. Attempting to download from Zenodo.\e[0m"
-    echo 
     mkdir -p genomad_db
-    echo -e "\e[36mDownloading database from Zenodo...\e[0m"
-    wget -O genomad_db_files.zip "https://zenodo.org/api/records/14886553/files-archive"
+
+    echo -e "\e[36mDownloading 'genomad_db_v1.9.tar.gz' from Zenodo...\e[0m"
+    wget -O genomad_db_v1.9.tar.gz "https://zenodo.org/records/14886553/files/genomad_db_v1.9.tar.gz?download=1"
     if [ $? -ne 0 ]; then
-      echo -e "\e[31mFailed to download database from Zenodo. Exiting.\e[0m"
+      echo -e "\e[31mFailed to download 'genomad_db_v1.9.tar.gz'. Exiting.\e[0m"
       exit 1
     fi
-    echo -e "\e[36mUnzipping downloaded database...\e[0m"
-    unzip genomad_db_files.zip -d genomad_db
-    echo -e "\e[36mExtracting tar.gz files...\e[0m"
-    find genomad_db -name "*.tar.gz" -exec tar -xzf {} -C genomad_db --strip-components=1 \; -exec rm {} \;
-    echo -e "\e[36mCleaning up temporary files...\e[0m"
-    rm genomad_db_files.zip
-    echo -e "\e[36mDatabase setup complete.\e[0m"
+    echo -e "\e[36mExtracting 'genomad_db_v1.9.tar.gz'...\e[0m"
+    tar -xzf genomad_db_v1.9.tar.gz -C genomad_db --strip-components=1
+    rm genomad_db_v1.9.tar.gz
+
+    echo -e "\e[36mDownloading 'genomad_hmm_v1.9.tar.gz' from Zenodo...\e[0m"
+    wget -O genomad_hmm_v1.9.tar.gz "https://zenodo.org/records/14886553/files/genomad_hmm_v1.9.tar.gz?download=1"
+    if [ $? -ne 0 ]; then
+      echo -e "\e[31mFailed to download 'genomad_hmm_v1.9.tar.gz'. Exiting.\e[0m"
+      exit 1
     fi
-    else
-    echo -e "\e[36mDirectory 'genomad_db' already exists. Skipping database download.\e[0m"
+    echo -e "\e[36mExtracting 'genomad_hmm_v1.9.tar.gz'...\e[0m"
+    tar -xzf genomad_hmm_v1.9.tar.gz -C genomad_db
+    rm genomad_hmm_v1.9.tar.gz
+
+    echo -e "\e[36mDownloading 'genomad_metadata_v1.9.tsv.gz' from Zenodo...\e[0m"
+    wget -O genomad_metadata_v1.9.tsv.gz "https://zenodo.org/records/14886553/files/genomad_metadata_v1.9.tsv.gz?download=1"
+    if [ $? -ne 0 ]; then
+      echo -e "\e[31mFailed to download 'genomad_metadata_v1.9.tsv.gz'. Exiting.\e[0m"
+      exit 1
     fi
+    echo -e "\e[36mExtracting 'genomad_metadata_v1.9.tsv.gz'...\e[0m"
+    gunzip -f genomad_metadata_v1.9.tsv.gz
+
+    echo -e "\e[36mDownloading 'genomad_msa_v1.9.tar.gz' from Zenodo...\e[0m"
+    wget -O genomad_msa_v1.9.tar.gz "https://zenodo.org/records/14886553/files/genomad_msa_v1.9.tar.gz?download=1"
+    if [ $? -ne 0 ]; then
+      echo -e "\e[31mFailed to download 'genomad_msa_v1.9.tar.gz'. Exiting.\e[0m"
+      exit 1
+    fi
+    echo -e "\e[36mExtracting 'genomad_msa_v1.9.tar.gz'...\e[0m"
+    tar -xzf genomad_msa_v1.9.tar.gz -C genomad_db
+    rm genomad_msa_v1.9.tar.gz
+  fi
+else
+  echo -e "\e[36mDirectory 'genomad_db' already exists. Skipping database download.\e[0m"
+fi
 
 
 echo "Genomad is installed and ready to use."
