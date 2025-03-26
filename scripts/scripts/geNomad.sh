@@ -18,11 +18,12 @@ conda activate genomad
 if [ ! -d "genomad_db" ]; then
   echo "Directory 'genomad_db' does not exist. Creating directory and downloading database."
   if ! genomad download-database .; then
-    echo "Failed to download database using genomad. Attempting to download from Zenodo."
+    echo -e "\e[33mFailed to download database using genomad. Attempting to download from Zenodo.\e[0m"
+    echo 
     mkdir -p genomad_db
     wget -O genomad_db_v1.7.tar.gz "https://zenodo.org/records/10594875/files/genomad_db_v1.7.tar.gz?download=1"
     if [ $? -ne 0 ]; then
-      echo "Failed to download database from Zenodo. Exiting."
+      echo -e "\e[31mFailed to download database from Zenodo. Exiting.\e[0m"
       exit 1
     fi
     tar -xzf genomad_db_v1.7.tar.gz -C genomad_db --strip-components=1
