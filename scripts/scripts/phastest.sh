@@ -4,6 +4,8 @@ file_=$1
 filename=$(basename -- "$file_")
 extractfilename="${filename%%.*}"
 
+echo $extractfilename
+
 if [ -d "./results/results_phastest/$extractfilename" ]; then
     echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping Phastest step.\e[0m"
     exit 0
