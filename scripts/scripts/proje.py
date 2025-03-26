@@ -35,7 +35,7 @@ def finder(result_file, defense_finder_prt):
     origin_list = []
 
     for row in defense.itertuples():
-        nc_list.append("_".join(row.sys_id.split("_")[:2]))
+        nc_list.append(row.replicon)
         sys_beg_list.append(int(row.beg_pos))
         sys_end_list.append(int(row.end_pos))
         type_list.append(row.subtype)
