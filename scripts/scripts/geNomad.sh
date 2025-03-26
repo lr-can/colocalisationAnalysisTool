@@ -21,17 +21,23 @@ if [ ! -d "genomad_db" ]; then
     echo -e "\e[33mFailed to download database using genomad. Attempting to download from Zenodo.\e[0m"
     echo 
     mkdir -p genomad_db
-    wget -O genomad_db_v1.7.tar.gz "https://zenodo.org/records/10594875/files/genomad_db_v1.7.tar.gz?download=1"
+    echo -e "\e[36mDownloading database from Zenodo...\e[0m"
+    wget -O genomad_db_files.zip "https://zenodo.org/api/records/14886553/files-archive"
     if [ $? -ne 0 ]; then
       echo -e "\e[31mFailed to download database from Zenodo. Exiting.\e[0m"
       exit 1
     fi
-    tar -xzf genomad_db_v1.7.tar.gz -C genomad_db --strip-components=1
-    rm genomad_db_v1.7.tar.gz
-  fi
-else
-  echo "Directory 'genomad_db' already exists. Skipping database download."
-fi
+    echo -e "\e[36mUnzipping downloaded database...\e[0m"
+    unzip genomad_db_files.zip -d genomad_db
+    echo -e "\e[36mExtracting tar.gz files...\e[0m"
+    find genomad_db -name "*.tar.gz" -exec tar -xzf {} -C genomad_db --strip-components=1 \; -exec rm {} \;
+    echo -e "\e[36mCleaning up temporary files...\e[0m"
+    rm genomad_db_files.zip
+    echo -e "\e[36mDatabase setup complete.\e[0m"
+    fi
+    else
+    echo -e "\e[36mDirectory 'genomad_db' already exists. Skipping database download.\e[0m"
+    fi
 
 
 echo "Genomad is installed and ready to use."
