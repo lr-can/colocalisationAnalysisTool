@@ -31,5 +31,26 @@ print(defense_finder())
 Pour genomad : split les coordonnées en deux 788542-797598 par "-" et appeler sys_beg et sys_end avec les données.
 Pour phastest : à partir de la librairy json, et voir comment transformer en pandas dataframe.
 """
+def merge_defense_and_genomad(defense_data, genomad_data, tolerance=100000):
+    # Merge the two datasets based on overlapping coordinates with tolerance
+    merged_data = []
+    for _, defense_row in defense_data.iterrows():
+        for _, genomad_row in genomad_data.iterrows():
+            if not (int(defense_row["end"]) + tolerance < int(genomad_row["begin"]) or int(defense_row["begin"]) - tolerance > int(genomad_row["end"])):
+                merged_data.append({
+                    "defense_sys_id": defense_row["sys_id"],
+                    "defense_type": defense_row["type"],
+                    "genomad_sys_id": genomad_row["sys_id"],
+                    "genomad_type": genomad_row["type"],
+                    "overlap_begin": max(int(defense_row["begin"]), int(genomad_row["begin"])),
+                    "overlap_end": min(int(defense_row["end"]), int(genomad_row["end"]))
+                })
+    return pd.DataFrame(merged_data)
+
+# Example usage
+defense_data = pd.read_csv("defense_data.csv")
+genomad_data = pd.read_csv("genomad_data.csv")
+merged_results = merge_defense_and_genomad(defense_data, genomad_data, tolerance=100000)
+print(merged_results)
 
 
