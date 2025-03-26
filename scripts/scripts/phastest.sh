@@ -2,6 +2,12 @@
 
 file_=$1
 filename=$(basename -- "$file_")
+extractfilename="${filename%%.*}"
+
+if [ -d "./results/results_phastest/$extractfilename" ]; then
+    echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping Phastest step.\e[0m"
+    exit 0
+fi
 
 echo "Copying the file to the tmp directory"
 
@@ -12,11 +18,6 @@ gunzip ./tmp/"$filename"
 for f in ./tmp/*; do
     mv -- "$f" "${f%.gz}.fna"
 done
-
-if [ -d "./results/results_phastest/$filename" ]; then
-    echo -e "\e[31mWARNING : Output directory already exists for $filename, skipping Phastest step.\e[0m"
-    exit 0
-fi
 
 bash phastest_api.sh --submitjob --inputDir ./tmp/
 
