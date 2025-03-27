@@ -72,6 +72,9 @@ def plot_data(zones_of_interest, tolerance):
     # Group by unique GeNomad sys_ids
     unique_sys_ids = zones_of_interest[zones_of_interest['origin'].str.lower() == 'genomad']['sys_id'].unique()
     print(f"Unique sys_ids: {unique_sys_ids}")
+    if len(unique_sys_ids) == 0:
+        print("\033[91mWARNING: no colocalisation found for this analysis\033[0m")
+        return []
 
     for sys_id in unique_sys_ids:
         # Filter rows for the current sys_id

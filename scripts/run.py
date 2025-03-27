@@ -49,17 +49,14 @@ if args.file and args.directory:
 if args.directory:
     for filename in os.listdir(args.directory):
         filepath = os.path.join(args.directory, filename)
-        if os.path.islink(filepath):
-            filepath = os.path.realpath(filepath)
-        if ".fa" in filename or ".fasta" or ".fna" in filename:
+        if os.path.isfile(filepath) and (filename.includes(".fa") or filename.includes(".fasta") or filename.includes(".fna")):
             files.append(filepath)
 elif args.file:
-    if os.path.islink(args.file):
-        args.file = os.path.realpath(args.file)
-    files.append(args.file)
+    if os.path.isfile(args.file):
+        files.append(args.file)
 
 if not args.threads:
-    args.threads = 4
+    args.threads = 1
 
 print(f"""{bcolors.OKCYAN} Welcome to the colocalisation analysis tool! 
 This tool has been developed by a group of Master's students from the Claude Bernard Lyon 1 University, under the supervision of COLUZZI, Charles, and PLANTADY, Clarisse.
