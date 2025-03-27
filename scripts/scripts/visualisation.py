@@ -2,6 +2,7 @@ import pandas as pd
 import plotly
 import argparse
 import plotly.graph_objs as go
+from createReport import addPlot
 
 def parse_args():
     """
@@ -16,6 +17,7 @@ def parse_args():
         required=True, 
         help="Path to the input CSV file containing the data."
     )
+    parser.add_argument("-b", "--basename", type=str, help="Base name of the output directory.", required=True)
     return parser.parse_args()
 
 args = parse_args()
@@ -51,5 +53,106 @@ def identify_interest_zones(dataframe, tolerance):
 zones_of_interest = identify_interest_zones(df, tolerance)
 print(f"\033[96mZones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:\033[0m")
 print(zones_of_interest)
+
+# Plot the data
+import plotly.figure_factory as ff
+
+def plot_data(zones_of_interest, tolerance):
+    """
+    Plot the data in the zones_of_interest dataframe.
+    Args:
+        zones_of_interest (pd.DataFrame): The dataframe containing the zones of interest.
+        tolerance (float): The tolerance to use for the plot.
+    Returns:
+        list: A list of dictionaries containing the HTML strings for the plots.
+    
+    """
+
+    result_buffer = []
+    # Group by unique GeNomad sys_ids
+    unique_sys_ids = zones_of_interest['sys_id'].unique()
+
+    for sys_id in unique_sys_ids:
+        # Filter rows for the current sys_id
+        genomad_rows = zones_of_interest[
+            (zones_of_interest['origin'].str.lower() == 'genomad') & 
+            (zones_of_interest['sys_id'] == sys_id)
+        ]
+        defense_rows = zones_of_interest[
+            (zones_of_interest['origin'].str.lower() == 'defensefinder') & 
+            (zones_of_interest['sys_id'] == sys_id)
+        ]
+        phastest_rows = zones_of_interest[
+            (zones_of_interest['origin'].str.lower() == 'phastest') & 
+            (zones_of_interest['sys_id'] == sys_id)
+        ]
+
+        # Determine plot range
+        plot_start = min(genomad_rows['begin']) - tolerance
+        plot_end = max(genomad_rows['end']) + tolerance
+
+        # Create traces for the plot
+        traces = []
+
+        # Add GeNomad elements
+        for _, row in genomad_rows.iterrows():
+            traces.append(go.Scatter(
+                x=[row['begin'], row['end']],
+                y=[1, 1],
+                mode='lines+text',
+                line=dict(color='blue', width=10),
+                text=row['type'],
+                textposition='middle center',
+                name=f"GeNomad: {row['type']}"
+            ))
+
+        # Add DefenseFinder elements
+        for _, row in defense_rows.iterrows():
+            traces.append(go.Scatter(
+                x=[row['begin'], row['end']],
+                y=[0.5, 0.5],
+                mode='lines+text',
+                line=dict(color='red', width=10),
+                text=row['type'],
+                textposition='middle center',
+                name=f"DefenseFinder: {row['type']}"
+            ))
+
+        # Add Phastest elements
+        for _, row in phastest_rows.iterrows():
+            traces.append(go.Scatter(
+                x=[row['begin'], row['end']],
+                y=[1.5, 1.5],
+                mode='lines+text',
+                line=dict(color='green', width=5),
+                text=row['sys_id'],
+                textposition='top center',
+                name=f"Phastest: {row['sys_id']}"
+            ))
+
+        # Create the layout
+        layout = go.Layout(
+            title=f"Visualization for sys_id: {sys_id}",
+            xaxis=dict(title="Genomic Position", range=[plot_start, plot_end]),
+            yaxis=dict(title="Track"),
+            showlegend=True
+        )
+
+        # Create the figure
+        fig = go.Figure(data=traces, layout=layout)
+
+        # Get the HTML string for the figure
+        html_string = plotly.io.to_html(fig, full_html=True)
+        print(f"HTML string for sys_id {sys_id} generated.")
+        result_buffer.append({"plot":html_string, "sys_id":f"{genomad_rows[0]["nom"]}_{sys_id}"})
+    return result_buffer
+
+result = plot_data(zones_of_interest, tolerance)
+
+for plot in result:
+    addPlot(args.basename, plot["plot"], tolerance, plot["sys_id"])
+
+print(f"\033[92mPlots added to the final report.\033[0m")
+
 
 

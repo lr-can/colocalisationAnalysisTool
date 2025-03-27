@@ -20,6 +20,43 @@ def initialize(basename):
         with open(os.path.join(output_dir, "final_report.html"), "w") as output_file:
             output_file.write(template.replace("{{DATE}}", current_date).replace("{{TIME}}", current_time))
 
+def addPlot(basename, plot_html, tolerance, file_name):
+    """
+    Adds a plot to the final report.
+    Args:
+        basename (str): The basename of the output
+        plot_html (str): The HTML content of the plot
+        tolerance (float): The tolerance used for the plot
+    """
+    output_dir = f"./results/final_results/{basename}"
+    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
+        content = output_file.read()
+        html_element = f"""
+<div class="main" id="{file_name}">
+    <h2>{file_name}</h2>
+    <p>Tolerance: {tolerance} bp</p>
+    {plot_html}
+</div>
+        """
+        updated_content = content.replace("{{results}}", html_element + "{{results}}")
+        output_file.seek(0)
+        output_file.write(updated_content)
+        output_file.truncate()
+        
+def endReport(basename):
+    """
+    Adds the end of the final report.
+    Args:
+        basename (str): The basename of the output
+    """
+    output_dir = f"./results/final_results/{basename}"
+    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
+        content = output_file.read()
+        updated_content = content.replace("{{results}}", "")
+        output_file.seek(0)
+        output_file.write(updated_content)
+        output_file.truncate()
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a final report based on a template.")
     parser.add_argument("-i", "--initialize", action="store_true", help="Run the initialization script to create the final report.")

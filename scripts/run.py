@@ -89,6 +89,7 @@ print(f"{bcolors.OKCYAN} Initializing result file and creating the result dir {b
 current_date = datetime.now().strftime("%Y-%m-%d")
 current_time = datetime.now().strftime("%H:%M:%S")
 subprocess.check_call(["bash", "./scripts/createReport.sh", f"{current_date}_{current_time}"])
+
 for file_ in files:
     print(f"{bcolors.OKBLUE} Running colocalisation analysis on {file_} {bcolors.ENDC}")
     print(f"{bcolors.OKCYAN} Running defenseFinder.sh {bcolors.ENDC}")
@@ -108,9 +109,11 @@ for file_ in files:
     result_phastest = "./results/results_phastest/" if args.phastest else ""
     file_name = os.path.basename(file_).split(".")[0]
 
-    subprocess.check_call(['bash' , './scripts/merge.sh', result_finder, result_genomad, file_name, result_phastest])
+    subprocess.check_call(['bash' , './scripts/merge.sh', result_finder, result_genomad, file_name, result_phastest, f"{current_date}_{current_time}"])
     print(f"{bcolors.OKGREEN} Results merged for {file_} {bcolors.ENDC}")
 
+from scripts.createReport import endReport
+endReport(f"{current_date}_{current_time}")
 print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
 
 
