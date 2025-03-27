@@ -151,7 +151,8 @@ def plot_data(zones_of_interest, tolerance):
         # Create the layout
         layout = go.Layout(
             title=f"Visualization for sys_id: {sys_id}",
-            xaxis=dict(title=None, showticklabels=False, range=[plot_start, plot_end]),
+            xaxis=dict(title="Position", showticklabels=True, range=[plot_start, plot_end]),
+            yaxis=dict(title=None, showticklabels=False, showgrid=False, zeroline=False),
             showlegend=True
         )
 
