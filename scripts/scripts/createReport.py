@@ -22,7 +22,7 @@ def initialize(basename):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate a final report based on a template.")
-    parser.add_argument("-i", "--initialize", type=str, help="Run the initialization script to create the final report.")
+    parser.add_argument("-i", "--initialize", action="store_true", help="Run the initialization script to create the final report.")
     parser.add_argument("-b", "--basename", type=str, help="Base name of the output files.")
     args = parser.parse_args()
 
