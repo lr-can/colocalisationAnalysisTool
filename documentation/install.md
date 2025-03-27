@@ -19,7 +19,7 @@ The project workflow consists of:
 1. Installing the dependencies:
    - Conda
    - HMMER
-   - DefenseFinder
+   - DefenseFinder 
    - geNomad
    - PHASTETS
 
