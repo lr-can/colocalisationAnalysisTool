@@ -8,10 +8,10 @@ def initialize(basename):
     Args:
         basename (str): The basename of the output
     """
-    with open("./ressources/template_res.html", "r") as file:
+    with open("../ressources/template_res.html", "r") as file:
         template = file.read()
         # Create the output directory if it doesn't exist
-        output_dir = f"../results/final_results/{basename}"
+        output_dir = f"./results/final_results/{basename}"
         os.makedirs(output_dir, exist_ok=True)
 
         current_date = datetime.now().strftime("%Y-%m-%d")
