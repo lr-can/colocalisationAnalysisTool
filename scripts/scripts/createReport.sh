@@ -11,7 +11,12 @@ echo -e "\e[36mActivating colocATool environment\e[0m"
 conda activate colocATool
 
 # Run the Python script with the provided arguments
-python ./scripts/createReport.py -b $base_name -i
+if [[ -z "$base_name" ]]; then
+	echo -e "\e[31mError: Base name is missing. Please provide a valid argument.\e[0m"
+	exit 1
+fi
+
+python ./scripts/createReport.py -b "$base_name" -i
 
 # Deactivate the conda environment
 conda deactivate
