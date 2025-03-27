@@ -71,6 +71,7 @@ def plot_data(zones_of_interest, tolerance):
     result_buffer = []
     # Group by unique GeNomad sys_ids
     unique_sys_ids = zones_of_interest['sys_id'].unique()
+    print(f"Unique sys_ids: {unique_sys_ids}")
 
     for sys_id in unique_sys_ids:
         # Filter rows for the current sys_id
@@ -88,6 +89,10 @@ def plot_data(zones_of_interest, tolerance):
         ]
 
         # Determine plot range
+        if genomad_rows.empty:
+            print(f"No GeNomad rows found for sys_id {sys_id}. Skipping plot.")
+            continue
+
         plot_start = min(genomad_rows['begin']) - tolerance
         plot_end = max(genomad_rows['end']) + tolerance
 
