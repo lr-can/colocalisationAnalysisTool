@@ -70,7 +70,7 @@ def plot_data(zones_of_interest, tolerance):
 
     result_buffer = []
     # Group by unique GeNomad sys_ids
-    unique_sys_ids = zones_of_interest['sys_id'].unique()
+    unique_sys_ids = zones_of_interest[zones_of_interest['origin'].str.lower() == 'genomad']['sys_id'].unique()
     print(f"Unique sys_ids: {unique_sys_ids}")
 
     for sys_id in unique_sys_ids:
@@ -81,11 +81,19 @@ def plot_data(zones_of_interest, tolerance):
         ]
         defense_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'defensefinder') & 
-            (zones_of_interest['sys_id'] == sys_id)
+            (zones_of_interest['sys_id'] == sys_id) or 
+            (
+            ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
+             (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
+            )
         ]
         phastest_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'phastest') & 
-            (zones_of_interest['sys_id'] == sys_id)
+            (zones_of_interest['sys_id'] == sys_id) or 
+            (
+            ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
+             (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
+            )
         ]
 
         # Determine plot range
