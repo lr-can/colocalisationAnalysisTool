@@ -8,7 +8,7 @@ def initialize(basename):
     Args:
         basename (str): The basename of the output
     """
-    with open("../../ressources/template_res.html", "r") as file:
+    with open("../ressources/template_res.html", "r") as file:
         template = file.read()
         # Create the output directory if it doesn't exist
         output_dir = f"../results/final_results/{basename}"
@@ -28,4 +28,4 @@ if __name__ == "__main__":
 
     if args.initialize:
         initialize(args.basename)
-        print(f"Final report initialized in ../results/final_results/{args.basename}/final_report.html")
+        print(f"Final report initialized in results/final_results/{args.basename}/final_report.html")
