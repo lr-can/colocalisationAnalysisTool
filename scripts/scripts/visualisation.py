@@ -124,10 +124,8 @@ def plot_data(zones_of_interest, tolerance):
             traces.append(go.Scatter(
             x=[row['begin'], row['end']],
             y=[1, 1],
-            mode='lines+text',
+            mode='lines',
             line=dict(color=f"rgba(0, 0, 255, {0.5 + 0.5 * (i / len(genomad_rows))})", width=15),
-            text=row['type'],
-            textposition='middle center',
             name=f"GeNomad: {row['type']}"
             ))
 
@@ -136,10 +134,8 @@ def plot_data(zones_of_interest, tolerance):
             traces.append(go.Scatter(
             x=[row['begin'], row['end']],
             y=[0.5, 0.5],
-            mode='lines+text',
+            mode='lines',
             line=dict(color=f"rgba(255, 0, 0, {0.5 + 0.5 * (i / len(defense_rows))})", width=15),
-            text=row['type'],
-            textposition='middle center',
             name=f"DefenseFinder: {row['type']}"
             ))
 
