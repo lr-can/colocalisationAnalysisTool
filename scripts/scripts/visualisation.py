@@ -144,8 +144,7 @@ def plot_data(zones_of_interest, tolerance):
         # Get the HTML string for the figure
         html_string = plotly.io.to_html(fig, full_html=True)
         print(f"HTML string for sys_id {sys_id} generated.")
-        result_buffer.append({"plot":html_string, "sys_id":f"{genomad_rows[0]["nom"]}_{sys_id}"})
-    print(result_buffer)
+        result_buffer.append({"plot":html_string, "sys_id":f"{genomad_rows[0]['nom']}_{sys_id}"})
     return result_buffer
 
 result = plot_data(zones_of_interest, tolerance)
