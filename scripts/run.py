@@ -84,6 +84,8 @@ print(r"""
                    ╫╫
       """)
 print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{"s" if len(files) > 1 else ""} {bcolors.ENDC}")
+print(f"{bcolors.OKCYAN} Initializing result file and creating the result dir {bcolors.ENDC}")
+subprocess.check_call(["bash", "./scripts/createReport.sh"])
 for file_ in files:
     print(f"{bcolors.OKBLUE} Running colocalisation analysis on {file_} {bcolors.ENDC}")
     print(f"{bcolors.OKCYAN} Running defenseFinder.sh {bcolors.ENDC}")
@@ -97,6 +99,7 @@ for file_ in files:
     print(f"{bcolors.OKGREEN} All analyses finished for {file_} {bcolors.ENDC}")
 
     print(f"{bcolors.OKCYAN} Merging results for {file_} {bcolors.ENDC}")
+
     result_finder = "./results/result_Finder/"
     result_genomad = "./results/results_genomad/"
     result_phastest = "./results/results_phastest/" if args.phastest else ""

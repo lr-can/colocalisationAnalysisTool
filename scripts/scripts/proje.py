@@ -145,7 +145,6 @@ if __name__ == "__main__":
     parser.add_argument("--path_to_phastest_result_folder", type=str, help="Path to the folder containing Phastest results", default="")
 
     args = parser.parse_args()
-
     result = main(
         args.path_to_defense_finder_result_folder,
         args.path_to_genomad_result_folder,
