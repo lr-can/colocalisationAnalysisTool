@@ -78,7 +78,7 @@ fi
 
 if ! conda env list | grep -q 'colocATool'; then
     echo "colocATool merging and vizualisation environement could not be found, installing..."
-    conda create -n colocATool -c conda-forge pandas plotly ipywidgets -y
+    conda create -n colocATool -c conda-forge pandas plotly ipywidgets matplotlib numpy -y
     condition=1
 else
     echo "colocATool is already installed"
