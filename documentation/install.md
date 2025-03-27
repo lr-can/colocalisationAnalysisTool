@@ -39,70 +39,54 @@ Python 3 must be installed on your machine.
    - After running this script, the terminal must be restarted to ensure that everything has been installed correctly
 2. Input data: 
 To run ColocAtools, it is necessary to provide a FASTA file of nucleotide sequences, as Genomad requires nucleotide sequences, while DefenseFinder can work with both nucleotide and proteomic sequences.
-3. Running geNomad and DefenseFinder and PHASTEST.
+3. Tool Pipeline:
    1. Prophage Detection with Genomad
-  After installing the necessary dependencies, the tool will run Genomad to search for prophages across the entire reference genome provided.
-  ##### Output
-  - The results will be stored in the following directory:
-  results/results_genomad/<genome_name_without_extension>
+   After installing the necessary dependencies, the tool will run Genomad to search for prophages across the entire reference genome provided.
+   Output:
+   - The results will be stored in the following directory:
+   results/results_genomad/<genome_name_without_extension>
 
-  - The tool will focus on the file containing the constitutive genes of the different prophages and their genomic coordinates. This file is named:
+   - The tool will focus on the file containing the constitutive genes of the different prophages and their genomic  coordinates. This file is named:
     genome_name_virus_genes.tsv
 
-  - This file can be found in the genome_name_summary directory.
-  ##### Documentation
-  For more information, refer to the official Genomad documentation:
-  https://portal.nersc.gov/genomad/pipeline.html
+   - This file can be found in the genome_name_summary directory.
+   Documentation:
+   For more information, refer to the official Genomad documentation:
+   https://portal.nersc.gov/genomad/pipeline.html
 
 
-  2. Identification of Defense Systems with Defense Finder:
+   2. Identification of Defense Systems with Defense Finder:
    In this step, Defense Finder is launched to detect all known anti-phage systems based on its pipeline.
-  ##### Output
-  - The results from this step will be stored in the following directory:
-  results/result_Finder/<genome_name_without_extension>
+   Output
+   - The results from this step will be stored in the following directory:
+   results/result_Finder/<genome_name_without_extension>
 
-  - The tool will then intersect the following files for further analysis:
+   - The tool will then intersect the following files for further analysis:
 
     genome_name.fa_defense_finder_genes.tsv
 
     genome_name.fa.prt_defensefinder.prt
 
-  ##### Documentation
-  For more information, refer to the official Defense Finder documentation:
-  https://github.com/mdmparis/defense-finder
+   Documentation
+   For more information, refer to the official Defense Finder documentation:
+   https://github.com/mdmparis/defense-finder
 
+    ## Script: run.py
 
+    This script allows running the colocalization analysis of defense systems and prophages in bacterial genomes.
 
-1. Analyzing colocalization.
+    ### Parameters
 
-## Scripts
+   - `-f / --file <file>`: Specifies a `.fa` or `.fasta` file to analyze.
+   - `-d / --directory <directory>`: Specifies a directory with multiple files to analyze.
+   - `-t / --threads <number>`: Number of threads to use in geNomad (optional). By default, the threads will be set to 4.
+   - `-p / --phastest`: Include if you also want to run phastest. 
+   ### Results
 
-We have two scripts that interact to carry this out:
-
-
-## Script: install.py
-
-This script activates the virtual environment in Python, checks if Conda is installed, and installs it locally if necessary. Additionally, it runs `checkOrInstall.sh`, which installs HMMER if it is not present on the system and also installs our tools: DefenseFinder, geNomad, and a Phastest API script. 
-
-After running this script, the terminal needs to be relaunched to ensure that everything has been installed correctly.
-
-
-## Script: run.py
-
-This script allows running the colocalization analysis of defense systems and prophages in bacterial genomes.
-
-### Parameters
-
-- `-f / --file <file>`: Specifies a `.fa` or `.fasta` file to analyze.
-- `-d / --directory <directory>`: Specifies a directory with multiple files to analyze.
-- `-t / --threads <number>`: Number of threads to use in geNomad (optional). By default, the threads will be set to 4.
-- `-p / --phastest`: Include if you also want to run phastest. 
-### Results
-
-The results are saved in:
-- `results/result_Finder/` with the name of the file corresponding to the processed input file.
-- `results/results_genomad/` with the name corresponding to the processed file.
-- `results/results_phastest/` with the name corresponding to the processed file.
+   The results are saved in:
+   - `results/result_Finder/` with the name of the file corresponding to the processed input file.
+   - `results/results_genomad/` with the name corresponding to the processed file.
+   - `results/results_phastest/` with the name corresponding to the processed file.
 
 
 ## Usage
