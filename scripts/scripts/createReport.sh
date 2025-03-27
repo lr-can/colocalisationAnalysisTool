@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Assign arguments to variables
-base_name="$1"
-base_name="${base_name%%.*}"
+base_name=$(date +"%Y%m%d%H%M%S")
 
 # Activate the conda environment
 eval "$(conda shell.bash hook)" > /dev/null 2>&1
@@ -10,11 +9,6 @@ conda init > /dev/null 2>&1
 echo -e "\e[36mActivating colocATool environment\e[0m"
 conda activate colocATool
 
-# Run the Python script with the provided arguments
-if [[ -z "$base_name" ]]; then
-	echo -e "\e[31mError: Base name is missing. Please provide a valid argument.\e[0m"
-	exit 1
-fi
 
 python ./scripts/createReport.py -b "$base_name" -i
 
