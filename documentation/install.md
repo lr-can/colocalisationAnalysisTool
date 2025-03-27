@@ -17,6 +17,10 @@ ColocAtools will then cross-check the results of these tools to provide a list o
 The project workflow consists of:
 
 1. Installing the dependencies:
+This tool relies on several bioinformatics dependencies that require specific versions, which may not be compatible with each other. To ensure proper installation and avoid conflicts between these versions, each tool will be installed in a separate Conda environment.
+#### Prerequisites:
+Before starting the installation process, ensure the following prerequisites are met:
+Python 3 must be installed on your machine.
    - Conda
    - HMMER
    - DefenseFinder 
@@ -25,9 +29,9 @@ The project workflow consists of:
    - jq
    - pandas, plotly and ipywidgets.
 
-2. Running geNomad and DefenseFinder and PHASTEST.
+1. Running geNomad and DefenseFinder and PHASTEST.
 
-3. Analyzing colocalization.
+2. Analyzing colocalization.
 
 ## Scripts
 
