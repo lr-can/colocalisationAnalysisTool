@@ -3,8 +3,6 @@ import plotly
 import argparse
 import plotly.graph_objs as go
 from createReport import addPlot
-from matplotlib import cm
-import numpy as np
 
 def parse_args():
     """
@@ -107,43 +105,44 @@ def plot_data(zones_of_interest, tolerance):
         # Create traces for the plot
         traces = []
 
-        # Generate a colormap
-        colormap = cm.get_cmap('viridis', len(genomad_rows) + len(defense_rows) + len(phastest_rows))
+        # Define base colors for each origin
+        base_colors = {
+            'genomad': 'blue',
+            'defensefinder': 'red',
+            'phastest': 'green'
+        }
 
-        # Add GeNomad elements with gradient colors
-        for idx, (_, row) in enumerate(genomad_rows.iterrows()):
-            color = f"rgba({colormap(idx)[0]*255}, {colormap(idx)[1]*255}, {colormap(idx)[2]*255}, 1)"
+        # Add GeNomad elements
+        for i, (_, row) in enumerate(genomad_rows.iterrows()):
             traces.append(go.Scatter(
             x=[row['begin'], row['end']],
             y=[1, 1],
             mode='lines+text',
-            line=dict(color=color, width=10),
+            line=dict(color=f"rgba(0, 0, 255, {0.5 + 0.5 * (i / len(genomad_rows))})", width=15),
             text=row['type'],
             textposition='middle center',
             name=f"GeNomad: {row['type']}"
             ))
 
-        # Add DefenseFinder elements with gradient colors
-        for idx, (_, row) in enumerate(defense_rows.iterrows(), start=len(genomad_rows)):
-            color = f"rgba({colormap(idx)[0]*255}, {colormap(idx)[1]*255}, {colormap(idx)[2]*255}, 1)"
+        # Add DefenseFinder elements
+        for i, (_, row) in enumerate(defense_rows.iterrows()):
             traces.append(go.Scatter(
             x=[row['begin'], row['end']],
             y=[0.5, 0.5],
             mode='lines+text',
-            line=dict(color=color, width=10),
+            line=dict(color=f"rgba(255, 0, 0, {0.5 + 0.5 * (i / len(defense_rows))})", width=15),
             text=row['type'],
             textposition='middle center',
             name=f"DefenseFinder: {row['type']}"
             ))
 
-        # Add Phastest elements with gradient colors
-        for idx, (_, row) in enumerate(phastest_rows.iterrows(), start=len(genomad_rows) + len(defense_rows)):
-            color = f"rgba({colormap(idx)[0]*255}, {colormap(idx)[1]*255}, {colormap(idx)[2]*255}, 1)"
+        # Add Phastest elements
+        for i, (_, row) in enumerate(phastest_rows.iterrows()):
             traces.append(go.Scatter(
             x=[row['begin'], row['end']],
             y=[1.5, 1.5],
             mode='lines+text',
-            line=dict(color=color, width=5),
+            line=dict(color=f"rgba(0, 255, 0, {0.5 + 0.5 * (i / len(phastest_rows))})", width=5),
             text=row['sys_id'],
             textposition='top center',
             name=f"Phastest: {row['sys_id']}"
