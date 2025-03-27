@@ -81,7 +81,6 @@ def plot_data(zones_of_interest, tolerance):
         ]
         defense_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'defensefinder') & 
-            (zones_of_interest['sys_id'] == sys_id) or 
             (
             ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
              (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
@@ -89,7 +88,6 @@ def plot_data(zones_of_interest, tolerance):
         ]
         phastest_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'phastest') & 
-            (zones_of_interest['sys_id'] == sys_id) or 
             (
             ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
              (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
