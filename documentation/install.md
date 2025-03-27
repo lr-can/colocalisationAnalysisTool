@@ -2,8 +2,9 @@
 
 ## Overview
 
-This project is based on analyzing the colocalization of prophages and defense systems in bacterial genomes to better understand the defense mechanisms that bacteria develop against bacteriophages. 
+This project is based on analyzing the colocalization of prophages and defense systems in bacterial genomes to better understand the defense mechanisms that bacteria develop against bacteriophages. Bacteriophages can integrate into the bacterial genome in the lysogenic state. Some of these phages carry genes that encode restriction or exclusion proteins, which prevent other phages from infecting the bacterium, providing a defense mechanism by blocking superinfection. Additionally, some phages provide beneficial genes that improve antibiotic resistance or environmental adaptation, helping bacteria survive under hostile conditions.
 
+ColocAtools is designed for analyzing the colocalization of prophages and defense systems in bacterial genomes to detect if defense systems are provided by the phages. The importance of this study lies in facilitating phage therapy, which uses phages (that do not develop defense systems) for treatment.
 ## Tools Used
 
 For this, we will use three bioinformatics tools:
@@ -60,6 +61,20 @@ The results are saved in:
 ## Usage
 
 To use the project, first ensure that all dependencies are installed correctly by running the `install.py` script. Then, you can execute the analysis using the `run.py` script, specifying the input files or directories and the desired number of threads.
+
+## Example Usage
+
+To illustrate the workflow, we provide a sample dataset and an example command to run the analysis.
+### 1️⃣ Download an Example FASTA File
+You can download a bacterial genome sequence directly from NCBI using:
+
+```bash
+wget -O NZ_PNSW01000002.1.fa "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&id=NZ_PNSW01000002.1&rettype=fasta&retmode=text"
+```
+### 2️⃣ Run the Analysis:
+After installing dependencies using install.py, execute the analysis with:
+
+python run.py -f NZ_PNSW01000002.1.fa -t 4 -p
 
 
 ## References
