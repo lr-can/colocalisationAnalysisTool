@@ -49,7 +49,7 @@ if args.file and args.directory:
 if args.directory:
     for filename in os.listdir(args.directory):
         filepath = os.path.join(args.directory, filename)
-        if os.path.isfile(filepath) and (filename.includes(".fa") or filename.includes(".fasta") or filename.includes(".fna")):
+        if os.path.isfile(filepath) and ((".fa" in filename) or (".fasta" in filename) or (".fna" in filename)):
             files.append(filepath)
 elif args.file:
     if os.path.isfile(args.file):
