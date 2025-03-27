@@ -69,6 +69,10 @@ def plot_data(zones_of_interest, tolerance):
     """
 
     result_buffer = []
+    if zones_of_interest.empty:
+        print("\033[91mWARNING: no colocalisation found for this analysis\033[0m")
+        return []
+    
     # Group by unique GeNomad sys_ids
     unique_sys_ids = zones_of_interest[zones_of_interest['origin'].str.lower() == 'genomad']['sys_id'].unique()
     print(f"Unique sys_ids: {unique_sys_ids}")
@@ -169,6 +173,7 @@ def plot_data(zones_of_interest, tolerance):
     return result_buffer
 
 result = plot_data(zones_of_interest, tolerance)
+
 
 for plot in result:
     addPlot(args.basename, plot["plot"], tolerance, plot["sys_id"])
