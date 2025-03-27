@@ -2,9 +2,8 @@
 
 ## Overview
 
-This project is based on analyzing the colocalization of prophages and defense systems in bacterial genomes to better understand the defense mechanisms that bacteria develop against bacteriophages. Bacteriophages can integrate into the bacterial genome in the lysogenic state. Some of these phages carry genes that encode restriction or exclusion proteins, which prevent other phages from infecting the bacterium, providing a defense mechanism by blocking superinfection. Additionally, some phages provide beneficial genes that improve antibiotic resistance or environmental adaptation, helping bacteria survive under hostile conditions.
-
-ColocAtools is designed for analyzing the colocalization of prophages and defense systems in bacterial genomes to detect if defense systems are provided by the phages. The importance of this study lies in facilitating phage therapy, which uses phages (that do not develop defense systems) for treatment.
+This project is based on the analysis of prophage colocalization and defense systems in bacterial genomes, in order to better understand the defense mechanisms that bacteria develop against bacteriophages. Some of these phages carry genes encoding restriction or exclusion proteins, which prevent other phages from infecting the bacteria, thus providing a defense mechanism by blocking superinfection. In addition, some phages contain beneficial genes that enhance antibiotic resistance or environmental adaptation, helping bacteria to survive in hostile conditions.
+Our aim is to develop a “ColocAtools” tool to analyze the colocalization of prophages and defense systems in bacterial genomes, in order to detect whether defense systems are provided by phages. The importance of this study lies in facilitating phage therapy, which uses phages (which do not develop defense systems) for treatments.
 ## Tools Used
 
 For this, we will use three bioinformatics tools:
