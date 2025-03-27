@@ -11,7 +11,7 @@ echo -e "\e[36mActivating colocATool environment\e[0m"
 conda activate colocATool
 
 # Run the Python script with the provided arguments
-python ./scripts/createReport.py -i -b "$base_name"
+python ./scripts/createReport.py -b $base_name -i
 
 # Deactivate the conda environment
 conda deactivate
