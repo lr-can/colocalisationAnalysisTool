@@ -10,9 +10,9 @@ ColocAtools is designed for analyzing the colocalization of prophages and defens
 For this, we will use three bioinformatics tools:
 
 - **DefenseFinder**: This tool is based on identifying anti-phage defense systems in bacterial genomes.
-- **geNomad**: This tool looks for mobile elements that can be transferred between organisms.
+- **geNomad**: This tool looks for mobile elements (provirus, plasmid, etc..) that can be transferred between organisms.
 - **PHASTEST**: This tool is designed to identify and annotate prophages in bacterial genomes. PHASTEST offers an API, which creates a waiting list and there may be a delay in obtaining results, so the processing time can be longer, especially when the contigs are larger or more complex.
-
+ColocAtools will then cross-check the results of these tools to provide a list of prophages and defense systems that overlap in the genome.
 ## Project Workflow
 
 The project workflow consists of:
@@ -23,6 +23,8 @@ The project workflow consists of:
    - DefenseFinder 
    - geNomad
    - PHASTETS
+   - jq
+   - pandas, plotly and ipywidgets.
 
 2. Running geNomad and DefenseFinder and PHASTEST.
 
