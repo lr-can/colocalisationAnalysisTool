@@ -16,11 +16,19 @@ ColocAtools will then cross-check the results of these tools to provide a list o
 
 The project workflow consists of:
 
-1. Installing the dependencies:
+### 1. Installing the dependencies:
 This tool relies on several bioinformatics dependencies that require specific versions, which may not be compatible with each other. To ensure proper installation and avoid conflicts between these versions, each tool will be installed in a separate Conda environment.
 #### Prerequisites:
 Before starting the installation process, ensure the following prerequisites are met:
 Python 3 must be installed on your machine.
+#### Installation Process:
+1. Run the install.py file: 
+  ````python3 install.py ```
+- The execution of the install.py file will activate a virtual environment, check if Conda is installed and accessible.
+
+- If Conda is not installed, restart the terminal and run install.py again after installing Conda.
+
+- The script will verify all required dependencies and create isolated Conda environments to install the following necessary tools and libraries:
    - Conda
    - HMMER
    - DefenseFinder 
@@ -28,10 +36,44 @@ Python 3 must be installed on your machine.
    - PHASTETS
    - jq
    - pandas, plotly and ipywidgets.
+- After running this script, the terminal must be restarted to ensure that everything has been installed correctly.
+2. Input data: 
+To run ColocAtools, it is necessary to provide a FASTA file of nucleotide sequences, as Genomad requires nucleotide sequences, while DefenseFinder can work with both nucleotide and proteomic sequences.
+3. Running geNomad and DefenseFinder and PHASTEST.
+   1. Prophage Detection with Genomad
+  After installing the necessary dependencies, the tool will run Genomad to search for prophages across the entire reference genome provided.
+  ## Output
+  - The results will be stored in the following directory:
+  results/results_genomad/<genome_name_without_extension>
 
-1. Running geNomad and DefenseFinder and PHASTEST.
+  - The tool will focus on the file containing the constitutive genes of the different prophages and their genomic coordinates. This file is named:
+    genome_name_virus_genes.tsv
 
-2. Analyzing colocalization.
+  - This file can be found in the genome_name_summary directory.
+  ## Documentation
+  For more information, refer to the official Genomad documentation:
+  https://portal.nersc.gov/genomad/pipeline.html
+
+
+  2. Identification of Defense Systems with Defense Finder:
+   In this step, Defense Finder is launched to detect all known anti-phage systems based on its pipeline.
+  ## Output
+  - The results from this step will be stored in the following directory:
+  results/result_Finder/<genome_name_without_extension>
+
+  - The tool will then intersect the following files for further analysis:
+
+    genome_name.fa_defense_finder_genes.tsv
+
+    genome_name.fa.prt_defensefinder.prt
+
+  ## Documentation
+  For more information, refer to the official Defense Finder documentation:
+  https://github.com/mdmparis/defense-finder
+
+
+
+1. Analyzing colocalization.
 
 ## Scripts
 
