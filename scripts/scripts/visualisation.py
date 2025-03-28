@@ -42,6 +42,10 @@ def identify_interest_zones(dataframe, tolerance):
     """
     zones_of_interest = []
 
+    var_condition = not dataframe["nom"].nunique() == 1
+    dataframe2 = dataframe
+    dataframe2["nom"] = dataframe2["nom"].str.split("_").str[0]
+
     for index, row in dataframe.iterrows():
         overlaps = dataframe[
             (dataframe['origin'].str.lower() == 'defensefinder') | 
@@ -54,6 +58,13 @@ def identify_interest_zones(dataframe, tolerance):
         ]
         if not overlaps.empty:
             zones_of_interest.append(row)
+        else:
+            if var_condition:
+                overlaps = dataframe2[
+                    (dataframe2['nom'] == row['nom'].split("_")[0])
+                ]
+                if not overlaps.empty:
+                    zones_of_interest.append(row)
 
     return pd.DataFrame(zones_of_interest)
 
