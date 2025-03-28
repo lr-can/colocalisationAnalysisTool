@@ -3,6 +3,7 @@ import plotly
 import argparse
 import plotly.graph_objs as go
 from createReport import addPlot
+import os
 
 def parse_args():
     """
@@ -23,6 +24,10 @@ def parse_args():
 args = parse_args()
 
 df = pd.read_csv(args.file, sep=",")
+os.makedirs(f"./results/final_results/{args.basename}", exist_ok=True)
+df.to_csv(f"./results/final_results/{args.basename}/raw_merged.csv", index=False)
+os.remove(args.file)
+
 tolerance = round(0.01 * max(df['end']))
 
 def identify_interest_zones(dataframe, tolerance):
@@ -51,6 +56,7 @@ def identify_interest_zones(dataframe, tolerance):
     return pd.DataFrame(zones_of_interest)
 
 zones_of_interest = identify_interest_zones(df, tolerance)
+zones_of_interest.to_csv(f"./results/final_results/{args.basename}/merged.csv", index=False)
 print(f"\033[96mZones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:\033[0m")
 print(zones_of_interest)
 
