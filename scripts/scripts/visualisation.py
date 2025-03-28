@@ -62,7 +62,7 @@ def identify_interest_zones(dataframe, tolerance):
         else:
             if var_condition:
                 overlaps = dataframe2[
-                    (dataframe2['nom'] == re.match(r'^(.*\.\d+)', row['nom'])[0]) &
+                    (dataframe2['nom'] == re.match(r'^(.*\.\d+)', str(row['nom']))[0]) &
                     (dataframe2['origin'].str.lower() == 'defensefinder') |
                     (dataframe2['origin'].str.lower() == 'phastest')
                 ]
