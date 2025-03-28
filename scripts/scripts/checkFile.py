@@ -46,22 +46,23 @@ def read_fasta(file_):
         for fasta_sequence in fasta_sequences:
             if not fasta_sequence.verif_if_dna():
                 raise ValueError(f"The sequence {fasta_sequence.header} is not a DNA sequence.")
-            print("\033[92mAll sequences are DNA sequences.\033[0m")
+        print("\033[92mAll sequences are DNA sequences.\033[0m")
 
         print("\033[96mChecking and removing duplicate sequences\033[0m")
         unique_sequences = {}
         condition = False
+        count = 0
         for fasta_sequence in fasta_sequences:
             if fasta_sequence.header not in unique_sequences:
                 unique_sequences[fasta_sequence.header] = fasta_sequence
             else:
-                print(f"\033[93mDuplicate found: {fasta_sequence.header}\033[0m")
+                count += 1
                 condition = True
         if not condition:
             print("\033[92mNo duplicates found.\033[0m")
             return
         fasta_sequences = list(unique_sequences.values())
-        print(f"\033[92mDuplicates removed. Remaining unique sequences count : {len(fasta_sequences)}\033[0m")
+        print(f"\033[92m {count} duplicates removed. Remaining unique sequences count : {len(fasta_sequences)}\033[0m")
         buffer_fasta_file = ""
         for fasta_sequence in fasta_sequences:
             buffer_fasta_file += str(fasta_sequence) + "\n"

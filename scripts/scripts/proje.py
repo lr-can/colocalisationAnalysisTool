@@ -67,8 +67,7 @@ def genomad(genomad_path):
 
         identifier_ = identifier.split("|")
         identifier__= identifier_[1].split("_")
-        sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2])
-        
+        sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_)
         nc_value = identifier_[0]
 
         nc_list.append(nc_value)
