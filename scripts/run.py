@@ -113,6 +113,7 @@ for file_ in files:
 
 from scripts.createReport import endReport
 endReport(f"{current_date}_{current_time}")
+os.remove("./merged_res.csv")
 print(f"{bcolors.OKGREEN} All jobs finished! {bcolors.ENDC}")
 
 
