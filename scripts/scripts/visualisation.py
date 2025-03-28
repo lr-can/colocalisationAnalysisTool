@@ -23,7 +23,7 @@ def parse_args():
 args = parse_args()
 
 df = pd.read_csv(args.file, sep=",")
-tolerance = 0.05 * max(df['end'])
+tolerance = round(0.05 * max(df['end']))
 
 def identify_interest_zones(dataframe, tolerance):
     """
