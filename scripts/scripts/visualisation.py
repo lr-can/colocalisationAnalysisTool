@@ -49,7 +49,7 @@ def identify_interest_zones(dataframe, tolerance):
 
     for index, row in dataframe.iterrows():
         overlaps = dataframe[
-            (dataframe['origin'].str.lower() == 'defensefinder') | 
+            (dataframe['origin'].str.lower() == 'genomad') | 
             (dataframe['origin'].str.lower() == 'phastest')
         ]
         overlaps = overlaps[
@@ -63,7 +63,7 @@ def identify_interest_zones(dataframe, tolerance):
             if var_condition:
                 overlaps = dataframe2[
                     (dataframe2['nom'] == re.match(r'^(.*\.\d+)', str(row['nom']))[0]) &
-                    (dataframe2['origin'].str.lower() == 'defensefinder') |
+                    (dataframe2['origin'].str.lower() == 'genomad') |
                     (dataframe2['origin'].str.lower() == 'phastest')
                 ]
                 if not overlaps.empty:
@@ -104,32 +104,32 @@ def plot_data(zones_of_interest, tolerance):
 
     for sys_id in unique_sys_ids:
         # Filter rows for the current sys_id
-        genomad_rows = zones_of_interest[
-            (zones_of_interest['origin'].str.lower() == 'genomad') & 
-            (zones_of_interest['sys_id'] == sys_id)
-        ]
         defense_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'defensefinder') & 
+            (zones_of_interest['sys_id'] == sys_id)
+        ]
+        genomad_rows = zones_of_interest[
+            (zones_of_interest['origin'].str.lower() == 'genomad') & 
             (
-            ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
-             (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
+            ((zones_of_interest['begin'] <= defense_rows['end'].max() + tolerance) & 
+             (zones_of_interest['end'] >= defense_rows['begin'].min() - tolerance))
             )
         ]
         phastest_rows = zones_of_interest[
             (zones_of_interest['origin'].str.lower() == 'phastest') & 
             (
-            ((zones_of_interest['begin'] <= genomad_rows['end'].max() + tolerance) & 
-             (zones_of_interest['end'] >= genomad_rows['begin'].min() - tolerance))
+            ((zones_of_interest['begin'] <= defense_rows['end'].max() + tolerance) & 
+             (zones_of_interest['end'] >= defense_rows['begin'].min() - tolerance))
             )
         ]
 
         # Determine plot range
-        if genomad_rows.empty:
+        if defense_rows.empty:
             print(f"No GeNomad rows found for sys_id {sys_id}. Skipping plot.")
             continue
 
-        plot_start = min(genomad_rows['begin']) - tolerance
-        plot_end = max(genomad_rows['end']) + tolerance
+        plot_start = min(defense_rows['begin']) - tolerance
+        plot_end = max(defense_rows['end']) + tolerance
 
         # Create traces for the plot
         traces = []
