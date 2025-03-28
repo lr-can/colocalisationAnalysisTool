@@ -4,7 +4,7 @@ import argparse
 import plotly.graph_objs as go
 from createReport import addPlot
 import os
-import regex as re
+import re
 
 def parse_args():
     """
