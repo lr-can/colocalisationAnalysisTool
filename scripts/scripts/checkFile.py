@@ -23,8 +23,16 @@ class Fasta_sequence:
         dna = set('ATCGN')
         return set(self.sequence.upper()).issubset(dna)
 
+import gzip
+
 def read_fasta(file_):
-    with open(file_, 'r+') as f:
+    if file_.endswith('.gz'):
+        open_func = gzip.open
+        mode = 'rt'
+    else:
+        open_func = open
+        mode = 'r+'
+    with open_func(file_, mode) as f:
         fasta_sequences = []
         file_content = f.read()
         entries = file_content.strip().split('>')
