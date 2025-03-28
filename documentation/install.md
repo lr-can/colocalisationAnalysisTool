@@ -95,6 +95,17 @@ In this step, DefenseFinder is launched to detect all known anti-phage systems b
 For more information, refer to the official DefenseFinder documentation:
 [DefenseFinder Documentation](https://github.com/mdmparis/defense-finder)
 
+#### Prophage Identification with PHASTEST (optional)
+If you want to include the execution of PHASTEST in your analysis, you must add the -p option when running the script. PHASTEST will identify and annotate prophages in the genome. Results:
+##### Output
+
+- The results from PHASTEST will be stored in the following directory: results/results_phastest/
+##### Documentation
+Documentation: For more information, refer to the official PHASTEST documentation:
+https://phast.wishartlab.com
+
+
+
 ---
 
 ## Execution
