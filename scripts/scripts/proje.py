@@ -66,8 +66,8 @@ def genomad(genomad_path):
         identifier, sys_beg, sys_end, tax = row.gene, row.start, row.end, row.taxname
 
         identifier_ = identifier.split("|")
-        identifier__= identifier_[1].split("_")
-        sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_)
+        identifier__= identifier_[1].split("_") if len(identifier_) > 1 else [identifier_[0]]
+        sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_[0])
         nc_value = identifier_[0]
 
         nc_list.append(nc_value)
