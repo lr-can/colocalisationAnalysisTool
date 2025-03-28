@@ -3,95 +3,134 @@
 ## Overview
 
 This project is based on the analysis of prophage colocalization and defense systems in bacterial genomes, in order to better understand the defense mechanisms that bacteria develop against bacteriophages. Some of these phages carry genes encoding restriction or exclusion proteins, which prevent other phages from infecting the bacteria, thus providing a defense mechanism by blocking superinfection. In addition, some phages contain beneficial genes that enhance antibiotic resistance or environmental adaptation, helping bacteria to survive in hostile conditions.
-Our aim is to develop a “ColocAtools” tool to analyze the colocalization of prophages and defense systems in bacterial genomes, in order to detect whether defense systems are provided by phages. The importance of this study lies in facilitating phage therapy, which uses phages (which do not develop defense systems) for treatments.
+
+Our aim is to develop a **ColocAtools** tool to analyze the colocalization of prophages and defense systems in bacterial genomes, in order to detect whether defense systems are provided by phages. The importance of this study lies in facilitating phage therapy, which uses phages (which do not develop defense systems) for treatments.
+
+---
+
 ## Tools Used
 
 For this, we will use three bioinformatics tools:
 
-- **DefenseFinder**: This tool is based on identifying anti-phage defense systems in bacterial genomes.
-- **geNomad**: This tool looks for mobile elements (provirus, plasmid, etc..) that can be transferred between organisms.
-- **PHASTEST**: This tool is designed to identify and annotate prophages in bacterial genomes. PHASTEST offers an API, which creates a waiting list and there may be a delay in obtaining results, so the processing time can be longer, especially when the contigs are larger or more complex.
+- **DefenseFinder**: Identifies anti-phage defense systems in bacterial genomes.
+- **geNomad**: Searches for mobile elements (provirus, plasmid, etc.) that can be transferred between organisms.
+- **PHASTEST**: Identifies and annotates prophages in bacterial genomes. PHASTEST offers an API that creates a waiting list, which may lead to delays in obtaining results, especially when the contigs are large or complex.
+
 ColocAtools will then cross-check the results of these tools to provide a list of prophages and defense systems that overlap in the genome.
+
+---
+
 ## Project Workflow
 
-The project workflow consists of:
+### 1. Installing the Dependencies
 
-### 1. Installing the dependencies:
-This tool relies on several bioinformatics dependencies that require specific versions, which may not be compatible with each other. To ensure proper installation and avoid conflicts between these versions, each tool will be installed in a separate Conda environment.
-#### Prerequisites:
+This tool relies on several bioinformatics dependencies that require specific versions, which may not be compatible with each other. To ensure proper installation and avoid conflicts, each tool will be installed in a separate Conda environment.
+
+#### Prerequisites
+
 Before starting the installation process, ensure the following prerequisites are met:
-Python 3 must be installed on your machine.
-#### Installation Process:
-1. Run the install.py file: 
-  ````python3 install.py ```
-   - The execution of the install.py file will activate a virtual environment, check if Conda is installed and accessible.
+- Python 3 must be installed on your machine.
 
-   - If Conda is not installed, restart the terminal and run install.py again after installing Conda.
+#### Installation Process
 
-   - The script will verify all required dependencies and create isolated Conda environments to install the following necessary tools and libraries:
-      - Conda
-      - HMMER
-      - DefenseFinder 
-      - geNomad
-      - PHASTETS
-      - jq
-      - pandas, plotly and ipywidgets.
-   - After running this script, the terminal must be restarted to ensure that everything has been installed correctly
-2. Input data: 
-To run ColocAtools, it is necessary to provide a FASTA file of nucleotide sequences, as Genomad requires nucleotide sequences, while DefenseFinder can work with both nucleotide and proteomic sequences.
-3. Tool Pipeline:
-   1. Prophage Detection with Genomad
-   After installing the necessary dependencies, the tool will run Genomad to search for prophages across the entire reference genome provided.
-   Output:
-   - The results will be stored in the following directory:
-   results/results_genomad/<genome_name_without_extension>
+1. Run the `install.py` file:
+   ```bash
+   python3 install.py
+   ```
+   - The execution of the `install.py` file will activate a virtual environment and check if Conda is installed and accessible.
+   - If Conda is not installed, restart the terminal and run `install.py` again after installing Conda.
+   - The script will verify all required dependencies and create isolated Conda environments to install the necessary tools and libraries:
+     - Conda
+     - HMMER
+     - DefenseFinder
+     - geNomad
+     - PHASTEST
+     - jq
+     - pandas, plotly, and ipywidgets
+   - After running this script, the terminal must be restarted to ensure that everything has been installed correctly.
 
-   - The tool will focus on the file containing the constitutive genes of the different prophages and their genomic  coordinates. This file is named:
-    genome_name_virus_genes.tsv
+### 2. Input Data
 
-   - This file can be found in the genome_name_summary directory.
-   Documentation:
-   For more information, refer to the official Genomad documentation:
-   https://portal.nersc.gov/genomad/pipeline.html
+To run ColocAtools, it is necessary to provide a FASTA file of nucleotide sequences, as geNomad requires nucleotide sequences, while DefenseFinder can work with both nucleotide and proteomic sequences.
+
+### 3. Tool Pipeline
+
+#### Prophage Detection with geNomad
+
+After installing the necessary dependencies, the tool will run geNomad to search for prophages across the entire reference genome provided.
+
+##### Output
+
+- The results will be stored in the following directory:
+  ```
+  results/results_genomad/<genome_name_without_extension>
+  ```
+- The tool will focus on the file containing the constitutive genes of the different prophages and their genomic coordinates. This file is named:
+  ```
+  genome_name_virus_genes.tsv
+  ```
+- This file can be found in the `genome_name_summary` directory.
+
+##### Documentation
+For more information, refer to the official geNomad documentation:
+[geNomad Documentation](https://portal.nersc.gov/genomad/pipeline.html)
+
+#### Identification of Defense Systems with DefenseFinder
+
+In this step, DefenseFinder is launched to detect all known anti-phage systems based on its pipeline.
+
+##### Output
+
+- The results from this step will be stored in the following directory:
+  ```
+  results/result_Finder/<genome_name_without_extension>
+  ```
+- The tool will then intersect the following files for further analysis:
+  ```
+  genome_name.fa_defense_finder_genes.tsv
+  genome_name.fa.prt_defensefinder.prt
+  ```
+
+##### Documentation
+For more information, refer to the official DefenseFinder documentation:
+[DefenseFinder Documentation](https://github.com/mdmparis/defense-finder)
+
+---
+
+## Execution
+
+To carry out the steps outlined above, execute the script `run.py`, which performs the colocalization analysis of defense systems and prophages in bacterial genomes:
+
+```bash
+python run.py [options]
+```
+
+### Parameters
+
+- `-f / --file <file>`: Specifies a `.fa` or `.fasta` file to analyze.
+- `-d / --directory <directory>`: Specifies a directory with multiple files to analyze.
+- `-t / --threads <number>`: Number of threads to use in geNomad (optional). By default, the threads will be set to 4.
+- `-p / --phastest`: Include this option if you also want to run Phastest.
+
+### Results
+
+The results are stored in the following directories:
+
+- `results/result_Finder/` - Contains the results corresponding to the processed input file.
+- `results/results_genomad/` - Stores the results generated by geNomad.
+- `results/results_phastest/` - Holds the results produced by Phastest.
+
+---
+
+## Notes
+
+- Ensure that all dependencies are installed before executing the script.
+- For large datasets, increasing the number of threads can improve performance.
+- If analyzing multiple files, using the `--directory` option is recommended.
+
+For further details, refer to the official documentation or contact the project maintainers.
 
 
-   2. Identification of Defense Systems with Defense Finder:
-   In this step, Defense Finder is launched to detect all known anti-phage systems based on its pipeline.
-   Output
-   - The results from this step will be stored in the following directory:
-   results/result_Finder/<genome_name_without_extension>
-
-   - The tool will then intersect the following files for further analysis:
-
-    genome_name.fa_defense_finder_genes.tsv
-
-    genome_name.fa.prt_defensefinder.prt
-
-   Documentation
-   For more information, refer to the official Defense Finder documentation:
-   https://github.com/mdmparis/defense-finder
-
-    ## Script: run.py
-
-    This script allows running the colocalization analysis of defense systems and prophages in bacterial genomes.
-
-    ### Parameters
-
-   - `-f / --file <file>`: Specifies a `.fa` or `.fasta` file to analyze.
-   - `-d / --directory <directory>`: Specifies a directory with multiple files to analyze.
-   - `-t / --threads <number>`: Number of threads to use in geNomad (optional). By default, the threads will be set to 4.
-   - `-p / --phastest`: Include if you also want to run phastest. 
-   ### Results
-
-   The results are saved in:
-   - `results/result_Finder/` with the name of the file corresponding to the processed input file.
-   - `results/results_genomad/` with the name corresponding to the processed file.
-   - `results/results_phastest/` with the name corresponding to the processed file.
-
-
-## Usage
-
-To use the project, first ensure that all dependencies are installed correctly by running the `install.py` script. Then, you can execute the analysis using the `run.py` script, specifying the input files or directories and the desired number of threads.
 
 ## Example Usage
 
