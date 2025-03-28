@@ -89,6 +89,8 @@ subprocess.check_call(["bash", "./scripts/createReport.sh", f"{current_date}_{cu
 
 for file_ in files:
     print(f"{bcolors.OKBLUE} Running colocalisation analysis on {file_} {bcolors.ENDC}")
+    print(f"{bcolors.OKCYAN} Checking file {bcolors.ENDC}")
+    subprocess.check_call(["bash", "./scripts/checkFile.sh", file_])
     print(f"{bcolors.OKCYAN} Running defenseFinder.sh {bcolors.ENDC}")
     subprocess.check_call(["bash", "./scripts/defenseFinder.sh", file_])
     print(f"{bcolors.OKCYAN} Running geNomad.sh {bcolors.ENDC}")
