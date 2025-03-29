@@ -20,6 +20,24 @@ def initialize(basename):
         with open(os.path.join(output_dir, "final_report.html"), "w") as output_file:
             output_file.write(template.replace("{{DATE}}", current_date).replace("{{TIME}}", current_time))
 
+def check_and_create_h1(output_dir, file_path):
+    """
+    Checks if there is an h1 tag in the file for the given plot path and creates one if not.
+    Args:
+        output_dir (str): The output directory
+        file_path (str): The path to the file
+    
+    """
+    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
+        content = output_file.read()
+        file_name_only = os.path.basename(file_path)
+        if f"<h1>{file_name_only}</h1>" not in content:
+            h1_element = f"<h1 class='newFile'>{file_name_only}</h1>"
+            updated_content = content.replace("{{results}}", h1_element + "{{results}}")
+            output_file.seek(0)
+            output_file.write(updated_content)
+            output_file.truncate()
+
 def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     """
     Adds a plot to the final report.
@@ -49,24 +67,6 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     </div>
             """
             updated_content = content.replace("{{results}}", html_element + "{{results}}")
-            output_file.seek(0)
-            output_file.write(updated_content)
-            output_file.truncate()
-
-def check_and_create_h1(output_dir, file_path):
-    """
-    Checks if there is an h1 tag in the file for the given plot path and creates one if not.
-    Args:
-        output_dir (str): The output directory
-        file_path (str): The path to the file
-    
-    """
-    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
-        content = output_file.read()
-        file_name_only = os.path.basename(file_path)
-        if f"<h1>{file_name_only}</h1>" not in content:
-            h1_element = f"<h1 class='newFile'>{file_name_only}</h1>"
-            updated_content = content.replace("{{results}}", h1_element + "{{results}}")
             output_file.seek(0)
             output_file.write(updated_content)
             output_file.truncate()
