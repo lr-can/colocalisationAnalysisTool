@@ -83,7 +83,7 @@ def genomad(genomad_path):
             else:
                 topology = f"{annotation_accessions.split(';')[0]}"
         else:
-            topology = row.gene.replace(nc_value, "").replace("|", "") if row.gene else "Unknown"
+            topology = identifier
         topology_list.append(topology)
     
     origin_list = ["GeNomad"] * len(topology_list)
