@@ -57,6 +57,9 @@ while True:
         print(f"{current_time} - {bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
         print(f"{bcolors.OKGREY}{str(data['summary'])[:1870]}{bcolors.ENDC}")
         file_name = os.path.splitext(args.file.split("/")[-1])[0]
+        if data['summary'] == "No phage were found in this sequence!":
+            break
+
         
         # Download the zip file
         zip_response = requests.get("https://" + data['zip'])
