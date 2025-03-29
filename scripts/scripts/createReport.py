@@ -30,9 +30,11 @@ def check_and_create_h1(output_dir, file_path):
     """
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
+        import html
         file_name_only = os.path.basename(file_path)
-        if f"<h1>{file_name_only}</h1>" not in content:
-            h1_element = f"<h1 class='newFile'>{file_name_only}</h1>"
+        escaped_file_name = html.escape(file_name_only)
+        if f"<h1>{escaped_file_name}</h1>" not in content:
+            h1_element = f"<h1 class='newFile'>{escaped_file_name}</h1>"
             updated_content = content.replace("{{results}}", h1_element + "{{results}}")
             output_file.seek(0)
             output_file.write(updated_content)
