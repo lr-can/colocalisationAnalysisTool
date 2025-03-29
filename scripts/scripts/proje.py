@@ -45,6 +45,7 @@ def finder(result_file, defense_finder_prt):
   
     return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id, 'origin_identifier': nc_list})
 
+import re
 def genomad(genomad_path):
 
     df = pd.read_csv(genomad_path, sep= "\t")
@@ -68,7 +69,9 @@ def genomad(genomad_path):
 
         identifier_ = identifier.split("|")
         identifier__= identifier_[1].split("_") if len(identifier_) > 1 else [identifier_[0]]
-        sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_[0])
+        loc_sys_id = identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_[0]
+        loc_sys_id = re.sub(r"\.(\d+)_\d+", r".\1", loc_sys_id)
+        sys_id.append()
         nc_value = identifier_[0]
         identifier_list.append(identifier)
 
