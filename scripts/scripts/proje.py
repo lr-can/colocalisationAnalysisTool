@@ -76,13 +76,14 @@ def genomad(genomad_path):
         sys_beg_list.append(sys_beg)
         sys_end_list.append(sys_end)
         taxonomy.append(tax)
+
         if not pd.isna(annotation_accessions) and annotation_accessions != "NA":
             if not pd.isna(annotation_description) and annotation_description != "NA":
                 topology = f"{annotation_description} ({annotation_accessions.split(';')[0]})" 
             else:
                 topology = f"{annotation_accessions.split(';')[0]}"
         else:
-            topology = identifier.replace(nc_value, "").replace("|", "")
+            topology = row.gene.replace(nc_value, "").replace("|", "") if row.gene else "Unknown"
         topology_list.append(topology)
     
     origin_list = ["GeNomad"] * len(topology_list)
