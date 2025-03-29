@@ -55,7 +55,7 @@ while True:
     else:
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print(f"{current_time} - {bcolors.OKGREEN}Job's status: {data['status']}{bcolors.ENDC}")
-        print(f"{bcolors.OKGREY}{data['summary']}{bcolors.ENDC}")
+        print(f"{bcolors.OKGREY}{str(data['summary'])[:1870]}{bcolors.ENDC}")
         file_name = os.path.splitext(args.file.split("/")[-1])[0]
         
         # Download the zip file

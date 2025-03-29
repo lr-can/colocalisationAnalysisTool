@@ -96,8 +96,12 @@ def genomad(genomad_path):
 
 def phastest(phastest_path):
 
-    with open(phastest_path) as file:
-        data = json.load(file)
+    try:
+        with open(phastest_path) as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"Warning: No such file or directory: '{phastest_path}'")
+        return pd.DataFrame(columns=["nom", "type", "origin", "begin", "end", "sys_id", "origin_identifier"])
     
     nc_list = []
     sys_id = []
