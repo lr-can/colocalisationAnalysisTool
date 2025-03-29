@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import argparse
+import re
 
 def initialize(basename):
     """
@@ -32,9 +33,9 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
         h1_ele = ""
-        if f"<h1 class=\"newFile\">{os.path.basename(file_path)}</h1>" not in content:
+        if f"<h1 class=\"newFile\" id=\"{os.path.basename(file_path)}\">{os.path.basename(file_path)}</h1>" not in content:
             h1_ele = f"""
-            <h1 class="newFile">{os.path.basename(file_path)}</h1>
+            <h1 class="newFile" id=\"{os.path.basename(file_path)}\">{os.path.basename(file_path)}</h1>
             """
         with open(file_path, "r") as file:
             lines = file.readlines()
@@ -69,10 +70,10 @@ def createMenu(output_dir):
         lines = content.splitlines()
         menu = []
         for line in lines:
-            if "<h1 class=\"newFile\">" in line:
-                start_index = line.index("<h1 class=\"newFile\">") + len("<h1 class=\"newFile\">")
-                end_index = line.index("</h1>")
-                menu.append(line[start_index:end_index])
+            if "<h1 class=\"newFile\" id=\"" in line:
+                match = re.search(r'id="([^"]+)"', line)
+                if match:
+                    menu.append(match.group(1))
         menu_html = "".join([f"<div><a href='#{item}'>{item}</a></div>" for item in menu])
         updated_content = content.replace("{{menu}}", menu_html)
         output_file.seek(0)
