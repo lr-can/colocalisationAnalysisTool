@@ -61,7 +61,7 @@ if not args.threads:
 print(f"""{bcolors.OKCYAN} Welcome to the colocalisation analysis tool! 
 This tool has been developed by a group of Master's students from the Claude Bernard Lyon 1 University, under the supervision of COLUZZI, Charles, and PLANTADY, Clarisse.
 {bcolors.ENDC}""")
-print(r"""
+print("""
                     \033[38;5;214m╫╫\033[0m
       \033[38;5;214m╫╫\033[0m          \033[38;5;214m╫╫╫╫╫╫\033[0m           \033[38;5;214m╫╫\033[0m
       \033[38;5;214m╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫╫\033[0m
