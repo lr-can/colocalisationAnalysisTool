@@ -48,8 +48,8 @@ def identify_interest_zones(dataframe, tolerance):
     zones_of_interest = []
 
     var_condition = not dataframe["nom"].nunique() == 1
-    dataframe2 = dataframe
-    dataframe2["nom"] = dataframe2["nom"].str.extract(r'^(.*\.\d+)')[0]
+    dataframe2 = dataframe.copy()
+    dataframe2["nom"] = dataframe2["nom"].astype(str).str.extract(r'^(.*\.\d+)')[0]
 
     for index, row in dataframe.iterrows():
         overlaps = dataframe[
@@ -66,7 +66,7 @@ def identify_interest_zones(dataframe, tolerance):
         else:
             if var_condition:
                 overlaps = dataframe2[
-                    (dataframe2['nom'] == re.match(r'^(.*\.\d+)', row['nom'])[0]) if row['nom'] is not None else False &
+                    (dataframe2['nom'] == re.match(r'^(.*\.\d+)', str(row['nom']))[0]) if row['nom'] is not None else False &
                     (dataframe2['origin'].str.lower() == 'defensefinder') |
                     (dataframe2['origin'].str.lower() == 'phastest')
                 ]
