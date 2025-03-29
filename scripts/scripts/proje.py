@@ -78,7 +78,7 @@ def genomad(genomad_path):
         taxonomy.append(tax)
         if annotation_accessions != "NA":
             if annotation_description != "NA":
-                topology = f"{annotation_description} ({annotation_accessions.split(";")[0]})" 
+                topology = f"{annotation_description} ({annotation_accessions.split(';')[0]})" 
             else:
                 topology = f"{annotation_accessions.split(';')[0]}"
         else:
