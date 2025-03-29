@@ -20,7 +20,7 @@ def initialize(basename):
         with open(os.path.join(output_dir, "final_report.html"), "w") as output_file:
             output_file.write(template.replace("{{DATE}}", current_date).replace("{{TIME}}", current_time))
 
-def addPlot(basename, plot_html, tolerance, file_name):
+def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     """
     Adds a plot to the final report.
     Args:
@@ -31,17 +31,26 @@ def addPlot(basename, plot_html, tolerance, file_name):
     output_dir = f"./results/final_results/{basename}"
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
-        html_element = f"""
-<div class="main" id="{file_name}">
-    <h2>{file_name}</h2>
-    <p>Tolerance: {tolerance} bp</p>
-    {plot_html}
-</div>
-        """
-        updated_content = content.replace("{{results}}", html_element + "{{results}}")
-        output_file.seek(0)
-        output_file.write(updated_content)
-        output_file.truncate()
+        with open(file_path, "r") as file:
+            lines = file.readlines()
+            for line in lines[1:]:  # Skip the header
+                columns = line.strip().split("\t")
+                if origin_id == columns[0]:  # Check if origin_id matches the first column
+                    tax_id = columns[14]
+                    tax = columns[15]
+                    break
+            html_element = f"""
+    <div class="main" id="{file_name}">
+        <h2>{file_name}</h2>
+        <p>Tolerance: {tolerance} bp</p>
+        <p>Provirus taxonomy: {tax} (<a>https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={tax_id}</a>)</p>
+        {plot_html}
+    </div>
+            """
+            updated_content = content.replace("{{results}}", html_element + "{{results}}")
+            output_file.seek(0)
+            output_file.write(updated_content)
+            output_file.truncate()
         
 def endReport(basename):
     """

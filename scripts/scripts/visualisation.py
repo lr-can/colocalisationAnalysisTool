@@ -5,6 +5,7 @@ import plotly.graph_objs as go
 from createReport import addPlot
 import os
 import re
+import glob
 
 def parse_args():
     """
@@ -20,11 +21,13 @@ def parse_args():
         help="Path to the input CSV file containing the data."
     )
     parser.add_argument("-b", "--basename", type=str, help="Base name of the output directory.", required=True)
+    parser.add_argument("-o", "--origin", type=str, help="Origin path of the genomad result file.", required=True)
     return parser.parse_args()
 
 args = parse_args()
 
 df = pd.read_csv(args.file, sep=",")
+origin_file = glob.glob(f"{args.origin}/*_summary/*_virus_genes.tsv")[0]
 os.makedirs(f"./results/final_results/{args.basename}", exist_ok=True)
 df.to_csv(f"./results/final_results/{args.basename}/{list(df['nom'])[0]}_raw_merged.csv", index=False) if not df.empty else 0
 
@@ -187,14 +190,13 @@ def plot_data(zones_of_interest, tolerance):
         # Get the HTML string for the figure
         html_string = plotly.io.to_html(fig, full_html=True)
         print(f"HTML string for sys_id {sys_id} generated.")
-        result_buffer.append({"plot":html_string, "sys_id":f"{genomad_rows.iloc[0]['nom']}_{sys_id}"})
+        result_buffer.append({"plot":html_string, "sys_id":f"{genomad_rows.iloc[0]['nom']}_{sys_id}", 'origin_identifier':f"{genomad_rows.iloc[0]['origin_identifier']}"})
     return result_buffer
 
 result = plot_data(zones_of_interest, tolerance)
 
-
 for plot in result:
-    addPlot(args.basename, plot["plot"], tolerance, plot["sys_id"])
+    addPlot(args.basename, plot["plot"], tolerance, plot["sys_id"], origin_file, plot["origin_identifier"])
 
 print(f"\033[92mPlots added to the final report.\033[0m")
 

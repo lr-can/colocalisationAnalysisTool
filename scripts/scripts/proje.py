@@ -43,7 +43,7 @@ def finder(result_file, defense_finder_prt):
     
     origin_list = ["DefenseFinder"] * len(sys_beg_list)
   
-    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id, 'origin_identifier': nc_list})
 
 def genomad(genomad_path):
 
@@ -54,6 +54,7 @@ def genomad(genomad_path):
     sys_end_list = []
     taxonomy = []
     topology_list = []
+    identifier_list = []
     sys_id = []
 
     for row in df.itertuples():
@@ -63,23 +64,31 @@ def genomad(genomad_path):
         sys_beg = int(splitted_coords[0])
         sys_end = int(splitted_coords[1])"
         """
-        identifier, sys_beg, sys_end, tax = row.gene, row.start, row.end, row.taxname
+        identifier, sys_beg, sys_end, tax, annotation_accessions, annotation_description = row.gene, row.start, row.end, row.taxname, row.annotation_accessions, row.annotation_description
 
         identifier_ = identifier.split("|")
         identifier__= identifier_[1].split("_") if len(identifier_) > 1 else [identifier_[0]]
         sys_id.append(identifier__[0] + "_" + identifier__[1] + "_" + identifier__[2] if len(identifier__) > 2 else identifier_[0])
         nc_value = identifier_[0]
+        identifier_list.append(identifier)
 
         nc_list.append(nc_value)
         sys_beg_list.append(sys_beg)
         sys_end_list.append(sys_end)
         taxonomy.append(tax)
-        topology_list.append(identifier.replace(nc_value, "").replace("|", ""))
+        if annotation_accessions != "NA":
+            if annotation_description != "NA":
+                topology = f"{annotation_description} ({annotation_accessions.split(";")[0]})" 
+            else:
+                topology = f"{annotation_accessions.split(';')[0]}"
+        else:
+            topology = identifier.replace(nc_value, "").replace("|", "")
+        topology_list.append(topology)
     
     origin_list = ["GeNomad"] * len(topology_list)
     
     
-    return pd.DataFrame({"nom": nc_list, "type": topology_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
+    return pd.DataFrame({"nom": nc_list, "type": topology_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id, 'origin_identifier': identifier_list})
 
 def phastest(phastest_path):
 
@@ -107,7 +116,7 @@ def phastest(phastest_path):
         origin_list.append("Phastest")
     
     
-    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id})
+    return pd.DataFrame({"nom": nc_list, "type": type_list, "origin": origin_list, "begin": sys_beg_list, "end": sys_end_list, "sys_id": sys_id, 'origin_identifier': nc_list})
  
  
 
@@ -126,7 +135,7 @@ def main(path_to_defense_finder_result_folder, path_to_genomad_result_folder, ba
         phastest_path = f"{path_to_phastest_result_folder}/{base_name}/predicted_phage_regions.json"
         phastest_df = phastest(phastest_path)
     else:
-        phastest_df = pd.DataFrame(columns=["nom", "type", "origin", "begin", "end"])
+        phastest_df = pd.DataFrame(columns=["nom", "type", "origin", "begin", "end", "sys_id", "origin_identifier"])
     
     # Fusion des dataframes
     dfs = [genomad_df, phastest_df, defense_df]
