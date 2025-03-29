@@ -28,8 +28,9 @@ args = parse_args()
 
 df = pd.read_csv(args.file, sep=",")
 origin_file = glob.glob(f"{args.origin}/*_summary/*_virus_genes.tsv")[0]
+dir_name = os.path.basename(os.path.normpath(args.origin))
 os.makedirs(f"./results/final_results/{args.basename}", exist_ok=True)
-df.to_csv(f"./results/final_results/{args.basename}/{list(df['nom'])[0]}_raw_merged.csv", index=False) if not df.empty else 0
+df.to_csv(f"./results/final_results/{args.basename}/{dir_name}_raw_merged.csv", index=False) if not df.empty else 0
 
 with open(args.file, 'w') as f:
     f.write("nom,type,origin,begin,end,sys_id\n")
@@ -75,7 +76,7 @@ def identify_interest_zones(dataframe, tolerance):
     return pd.DataFrame(zones_of_interest)
 
 zones_of_interest = identify_interest_zones(df, tolerance)
-zones_of_interest.to_csv(f"./results/final_results/{args.basename}/{list(zones_of_interest['nom'])[0]}_merged.csv", index=False) if not zones_of_interest.empty else 0
+zones_of_interest.to_csv(f"./results/final_results/{args.basename}/{dir_name}_merged.csv", index=False) if not zones_of_interest.empty else 0
 print(f"\033[96mZones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:\033[0m")
 print(zones_of_interest)
 

@@ -39,9 +39,10 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
                     tax_id = columns[14]
                     tax = columns[15]
                     break
+            file_name_only = os.path.basename(file_path)
             html_element = f"""
-    <div class="main" id="{file_name}">
-        <h2>{file_name}</h2>
+    <div class="main" id="{file_name_only}">
+        <h2>{file_name_only}</h2>
         <p>Tolerance: {tolerance} bp</p>
         <p>Provirus taxonomy: {tax} (<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={tax_id}">{tax_id}</a>)</p>
         {plot_html}
