@@ -36,6 +36,71 @@
         #footer > div{
             margin: 0 10rem;
         }
+        .menu{
+            position: fixed;
+            left: 1rem;
+            top: 10vh;
+            width: 5vw;
+            min-height: 5vh;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .menu > div > div{
+            margin: 0.5rem 0;
+            display: none;
+        }
+        .menu > .menuIcon > span{
+            display: none;
+            font-size: 2rem;
+            margin-left: 2rem;
+        }
+        .menu:hover{
+            width: 20vw;
+            transition: all 0.3s ease;
+        }
+        .menu:hover > div > div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu:hover > .menuIcon{
+            transition: all 0.3s ease;
+        }
+        .menu:hover > .menuIcon > img{
+            transform: rotate(90deg);
+            transition: all 0.3s ease;
+        }
+        .menu:hover > .menuIcon > span{
+            display: block;
+        }
+        .menu > div > div:hover{
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu > div > div > a{
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .menu > div > div > a:hover{
+            transform: scale(1.05);
+        }
+        .menuIcon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -65,6 +130,15 @@
         </div>
         <div>
             <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/logo_UCBL.svg?raw=true" alt="Logo UCBL" style="height: 100px;">
+        </div>
+    </div>
+    <div class="menu">
+        <div class="menuIcon">
+            <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/menuIcon.png?raw=true" alt="Menu Icon" style="width: 50px;">
+            <span>Navigation</span>
+        </div>
+        <div>
+            {{menu}}
         </div>
     </div>
 </body>

@@ -40,9 +40,10 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
                     tax = columns[15]
                     break
             file_name_only = os.path.basename(file_path)
+            check_and_create_h1(output_dir, file_path)
             html_element = f"""
-    <div class="main" id="{file_name_only}">
-        <h2>{file_name_only}</h2>
+    <div class="main" id="{file_name}">
+        <h2>{file_name}</h2>
         <p>Tolerance: {tolerance} bp</p>
         <p>Provirus taxonomy: {tax} (<a href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id={tax_id}">{tax_id}</a>)</p>
         {plot_html}
@@ -52,6 +53,45 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
             output_file.seek(0)
             output_file.write(updated_content)
             output_file.truncate()
+
+def check_and_create_h1(output_dir, file_path):
+    """
+    Checks if there is an h1 tag in the file for the given plot path and creates one if not.
+    Args:
+        output_dir (str): The output directory
+        file_path (str): The path to the file
+    
+    """
+    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
+        content = output_file.read()
+        file_name_only = os.path.basename(file_path)
+        if f"<h1>{file_name_only}</h1>" not in content:
+            h1_element = f"<h1 class='newFile'>{file_name_only}</h1>"
+            updated_content = content.replace("{{results}}", h1_element + "{{results}}")
+            output_file.seek(0)
+            output_file.write(updated_content)
+            output_file.truncate()
+
+def createMenu(output_dir):
+    """
+    Parses the HTML file and creates a menu for the report from the h1.newFile tags.
+    Args:
+        output_dir (str): The output directory
+    """
+    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
+        content = output_file.read()
+        lines = content.splitlines()
+        menu = []
+        for line in lines:
+            if "<h1 class='newFile'>" in line:
+                start_index = line.index("<h1 class='newFile'>") + len("<h1 class='newFile'>")
+                end_index = line.index("</h1>")
+                menu.append(line[start_index:end_index])
+        menu_html = "<ul>" + "".join([f"<li><a href='#{item}'>{item}</a></li>" for item in menu]) + "</ul>"
+        updated_content = content.replace("{{menu}}", menu_html)
+        output_file.seek(0)
+        output_file.write(updated_content)
+        output_file.truncate()
         
 def endReport(basename):
     """
