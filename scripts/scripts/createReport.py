@@ -39,7 +39,6 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
                     tax_id = columns[14]
                     tax = columns[15]
                     break
-            file_name_only = os.path.basename(file_path)
             check_and_create_h1(output_dir, file_path)
             html_element = f"""
     <div class="main" id="{file_name}">
@@ -100,6 +99,7 @@ def endReport(basename):
         basename (str): The basename of the output
     """
     output_dir = f"./results/final_results/{basename}"
+    createMenu(output_dir)
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
         updated_content = content.replace("{{results}}", "")
