@@ -32,9 +32,9 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
         h1_ele = ""
-        if f"<h1>{os.path.basename(file_name)}</h1>" not in content:
+        if f"<h1>{os.path.basename(file_path)}</h1>" not in content:
             h1_ele = f"""
-            <h1 class="newFile">{os.path.basename(file_name)}</h1>
+            <h1 class="newFile">{os.path.basename(file_path)}</h1>
             """
         with open(file_path, "r") as file:
             lines = file.readlines()
