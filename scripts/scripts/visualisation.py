@@ -78,7 +78,10 @@ def identify_interest_zones(dataframe, tolerance):
 zones_of_interest = identify_interest_zones(df, tolerance)
 zones_of_interest.to_csv(f"./results/final_results/{args.basename}/{dir_name}_merged.csv", index=False) if not zones_of_interest.empty else 0
 print(f"\033[96mZones where genomad results overlap with defensefinder and/or phastest results, including a {tolerance} bp tolerance:\033[0m")
-print(zones_of_interest)
+if 10 < len(zones_of_interest) < 100:
+    print(zones_of_interest.head())
+else:
+    print(zones_of_interest)
 
 # Plot the data
 import plotly.figure_factory as ff
