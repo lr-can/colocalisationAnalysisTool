@@ -20,27 +20,6 @@ def initialize(basename):
         with open(os.path.join(output_dir, "final_report.html"), "w") as output_file:
             output_file.write(template.replace("{{DATE}}", current_date).replace("{{TIME}}", current_time))
 
-def check_and_create_h1(output_dir, file_path):
-    """
-    Checks if there is an h1 tag in the file for the given plot path and creates one if not.
-    Args:
-        output_dir (str): The output directory
-        file_path (str): The path to the file
-    
-    """
-    with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
-        content = output_file.read()
-        import html
-        file_name_only = os.path.basename(file_path)
-        escaped_file_name = html.escape(file_name_only)
-        if f"<h1>{escaped_file_name}</h1>" not in content:
-            print(f"Creating h1 tag for {file_name_only}")
-            h1_element = f"<h1 class='newFile'>{escaped_file_name}</h1>"
-            updated_content = content.replace("{{results}}", h1_element + "{{results}}")
-            output_file.seek(0)
-            output_file.write(updated_content)
-            output_file.truncate()
-
 def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     """
     Adds a plot to the final report.
@@ -52,6 +31,11 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
     output_dir = f"./results/final_results/{basename}"
     with open(os.path.join(output_dir, "final_report.html"), "r+") as output_file:
         content = output_file.read()
+        h1_ele = ""
+        if f"<h1>{os.path.basename(file_name)}</h1>" not in content:
+            h1_ele = f"""
+            <h1 class="newFile">{os.path.basename(file_name)}</h1>
+            """
         with open(file_path, "r") as file:
             lines = file.readlines()
             for line in lines[1:]:  # Skip the header
@@ -60,8 +44,8 @@ def addPlot(basename, plot_html, tolerance, file_name, file_path, origin_id):
                     tax_id = columns[14]
                     tax = columns[15]
                     break
-            check_and_create_h1(output_dir, file_path)
             html_element = f"""
+    {h1_ele}
     <div class="main" id="{file_name}">
         <h2>{file_name}</h2>
         <p>Tolerance: {tolerance} bp</p>
@@ -89,7 +73,7 @@ def createMenu(output_dir):
                 start_index = line.index("<h1 class='newFile'>") + len("<h1 class='newFile'>")
                 end_index = line.index("</h1>")
                 menu.append(line[start_index:end_index])
-        menu_html = "<ul>" + "".join([f"<li><a href='#{item}'>{item}</a></li>" for item in menu]) + "</ul>"
+        menu_html = "".join([f"<div><a href='#{item}'>{item}</a></div>" for item in menu])
         updated_content = content.replace("{{menu}}", menu_html)
         output_file.seek(0)
         output_file.write(updated_content)
