@@ -34,6 +34,7 @@ def check_and_create_h1(output_dir, file_path):
         file_name_only = os.path.basename(file_path)
         escaped_file_name = html.escape(file_name_only)
         if f"<h1>{escaped_file_name}</h1>" not in content:
+            print(f"Creating h1 tag for {file_name_only}")
             h1_element = f"<h1 class='newFile'>{escaped_file_name}</h1>"
             updated_content = content.replace("{{results}}", h1_element + "{{results}}")
             output_file.seek(0)
