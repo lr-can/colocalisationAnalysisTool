@@ -61,7 +61,7 @@ fi
 if ! conda env list | grep -q 'defensefinder'; then
     echo "defense-finder could not be found, installing..."
     pip install colorlog
-    conda create --name defensefinder -c bioconda -c conda-forge defense-finder -y
+    conda create --name defensefinder -c bioconda -c conda-forge defense-finder:2.0.0-0 -y
     condition=1
 else
     echo "defense-finder is already installed"
@@ -70,7 +70,7 @@ fi
 # Create genomad environment if not found
 if ! conda env list | grep -q 'genomad'; then
     echo "genomad could not be found, installing..."
-    conda create -n genomad -c conda-forge -c bioconda genomad -y
+    conda create -n genomad -c conda-forge -c bioconda genomad:1.11.0-0 -y
     condition=1
 else
     echo "genomad is already installed"

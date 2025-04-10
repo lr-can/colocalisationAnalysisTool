@@ -9,7 +9,7 @@ eval "$(conda shell.bash hook)" > /dev/null 2>&1
 conda init > /dev/null 2>&1
 conda activate defensefinder
 
-# defense-finder update 
+defense-finder update 
 
 echo "DefenseFinder is installed and ready to use."
 
