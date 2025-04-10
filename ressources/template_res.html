@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Report</title>
+    <link rel="icon" href="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/logo_colocATool.png?raw=true" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-family: "Raleway", sans-serif;
+        }
+        .main{
+            margin-top: 1rem;
+            width: 70vw;
+            min-height: 10vh;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        #title{
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+        #footer{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #footer > div{
+            margin: 0 10rem;
+        }
+        .menu{
+            position: fixed;
+            left: 1rem;
+            top: 10vh;
+            width: 5vw;
+            min-height: 5vh;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: left;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .menu > div > div{
+            margin: 0.5rem 0;
+            display: none;
+        }
+        .menu > .menuIcon > span{
+            display: none;
+            font-size: 2rem;
+            margin-left: 2rem;
+        }
+        .menu:hover{
+            width: 20vw;
+            transition: all 0.3s ease;
+        }
+        .menu:hover > div > div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .menu:hover > .menuIcon{
+            transition: all 0.3s ease;
+        }
+        .menu:hover > .menuIcon > img{
+            transform: rotate(90deg);
+            transition: all 0.3s ease;
+        }
+        .menu:hover > .menuIcon > span{
+            display: block;
+        }
+        .menu > div > div:hover{
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .menu > div > div > a{
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .menu > div > div > a:hover{
+            transform: scale(1.05);
+        }
+        .menuIcon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="main" id="title">
+        <div>
+            <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/logo_colocATool.png?raw=true" alt="Logo" style="width: 100px;">
+        </div>
+        <div style="margin-left: 3rem;">
+            <h1 style="margin-bottom: 0.3rem; margin-top: 0;">Colocalisation Analysis Tool</h1>
+            <div>
+                <em>A tool to analyze colocalisation between phages and defense systems in bacterial genomes</em>
+            </div>
+        </div>
+        <div style="color: grey; font-size: small; display: flex; justify-content: right; align-items: center; margin-left: 25rem; flex-direction: column; ">
+            <div>
+            <em>{{DATE}}</em>
+            </div>
+            <div>
+            <em>{{TIME}}</em>
+            </div>
+        </div>
+    </div>
+    {{results}}
+    <div class="main" id="footer"> 
+        <div>
+            <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/logo_BIOINF.png?raw=true" alt="Logo bioinfo@lyon" style="height: 100px;">
+        </div>
+        <div>
+            <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/logo_UCBL.svg?raw=true" alt="Logo UCBL" style="height: 100px;">
+        </div>
+    </div>
+    <div class="menu">
+        <div class="menuIcon">
+            <img src="https://github.com/lr-can/colocalisationAnalysisTool/blob/projet/ressources/menuIcon.png?raw=true" alt="Menu Icon" style="width: 50px;">
+            <span>Navigation</span>
+        </div>
+        <div>
+            {{menu}}
+        </div>
+    </div>
+</body>
+</html>
