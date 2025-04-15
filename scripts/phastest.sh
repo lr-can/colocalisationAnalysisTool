@@ -11,6 +11,16 @@ if [ -d "./results/results_phastest/$extractfilename" ]; then
     exit 0
 fi
 
+ # Detect Python interpreter
+if command -v python &>/dev/null; then
+    PYTHON_BIN=python
+elif command -v python3 &>/dev/null; then
+    PYTHON_BIN=python3
+else
+    echo "❌ No Python interpreter found. Please install Python 3 and try again."
+    exit 1
+fi
+
 echo "Copying the file to the tmp directory"
 
 mkdir -p ./tmp/
@@ -31,7 +41,7 @@ mkdir -p ./results/results_phastest/
 
 job_json_file=$(ls ./SubmissionJson/* | head -n 1)
 job_id=$(jq -r '.job_id' "$job_json_file")
-python3 ./scripts/phastest.py -f ./tmp/"${filename}" -j "$job_id"
+$PYTHON_BIN ./scripts/phastest.py -f ./tmp/"${filename}" -j "$job_id"
 
 echo -e "\e[32mPhasTest has finished running\e[0m"
 

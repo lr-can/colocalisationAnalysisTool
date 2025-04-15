@@ -81,7 +81,7 @@ print(r"""
                 ╫╫╫╫╫╫╫╫
                    ╫╫
       """)
-print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{"s" if len(files) > 1 else ""} {bcolors.ENDC}")
+print(f"{bcolors.BOLD} Running colocalisation analysis for {len(files)} file{'s' if len(files) > 1 else ''} {bcolors.ENDC}")
 print(f"{bcolors.OKCYAN} Initializing result file and creating the result dir {bcolors.ENDC}")
 current_date = datetime.now().strftime("%Y-%m-%d")
 current_time = datetime.now().strftime("%H:%M:%S")
