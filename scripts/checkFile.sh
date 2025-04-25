@@ -15,7 +15,6 @@ else
     exit 1
 fi
 
-echo "✅ Using Python: $($PYTHON_BIN --version)"
 
 # Call the Python script with the provided file
 $PYTHON_BIN ./scripts/checkFile.py -f "$1"
