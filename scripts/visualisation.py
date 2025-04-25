@@ -136,7 +136,7 @@ def plot_data(zones_of_interest, tolerance):
             print(f"No GeNomad rows found for sys_id {sys_id}. Skipping plot.")
             continue
 
-        plot_start = min(genomad_rows['begin']) - tolerance
+        plot_start = max(min(genomad_rows['begin']) - tolerance, 0)
         plot_end = max(genomad_rows['end']) + tolerance
 
         # Create traces for the plot
