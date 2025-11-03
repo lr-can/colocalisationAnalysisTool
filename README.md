@@ -1,5 +1,11 @@
 # Project Documentation
 
+## Master’s Degree in Bioinformatics — Year 1
+## University Claude Bernard Lyon 1 Project 12
+## Project team: Lorcan Brenders,Aure M. Agbomakounzo, Mariam El-khatabi
+##  Supervisors: Charle Coullizi, Vincent Lacroix 
+##  Academic Year: 2024-2025
+
 ## Overview
 
 This project is based on the analysis of prophage colocalization and defense systems in bacterial genomes, in order to better understand the defense mechanisms that bacteria develop against bacteriophages. Some of these phages carry genes encoding restriction or exclusion proteins, which prevent other phages from infecting the bacteria, thus providing a defense mechanism by blocking superinfection. In addition, some phages contain beneficial genes that enhance antibiotic resistance or environmental adaptation, helping bacteria to survive in hostile conditions.
