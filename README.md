@@ -1,10 +1,10 @@
 # Project Documentation
 
-## Master’s Degree in Bioinformatics — Year 1
-## University Claude Bernard Lyon 1 Project 12
-## Project team: Lorcan Brenders,Aure M. Agbomakounzo, Mariam El-khatabi
-##  Supervisors: Charle Coullizi, Vincent Lacroix 
-##  Academic Year: 2024-2025
+#### Master’s Degree in Bioinformatics — Year 1
+#### University Claude Bernard Lyon 1 Project 12
+#### Project team: Lorcan Brenders,Aure M. Agbomakounzo, Mariam El-khatabi
+####  Supervisors: Charle Coullizi, Vincent Lacroix 
+####  Academic Year: 2024-2025
 
 ## Overview
 
